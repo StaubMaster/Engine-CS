@@ -1,0 +1,116 @@
+﻿
+
+
+#	Normal
+var name point(1:2:3);
+
+
+
+#	Minimal WhiteSpace
+var name point(1:2:3);
+
+
+
+#	much WhiteSpace
+   var   name   point   (   1   :   2   :   3   )   ;
+
+
+
+#	MultiLine
+var
+name
+point
+(
+1
+:
+2
+:
+3
+)
+;
+
+
+
+
+
+how to parse command ?
+
+needs to start with "var"
+
+then a variable "name"
+	can contain AlphaNumeric and '_'
+	cannot start with a digit
+	cannot only be a _
+
+then a "="
+	this makes sense but not sure if it is needed
+	since it dosent do anything ?
+
+then needs a valid "type"
+	float, point, angle, index
+
+then the "value"
+	in the case of the examples, it is a point
+	which has 3 values
+	which are seperated by ":"
+	are the () needed ?
+		yes. some others might take a point and an angle
+		and having 2 pairs of 3 would be easier to understand then 6 values
+
+
+
+#	type in variable ?
+var name point(0:1:2);
+
+
+
+
+
+how to parse math ?
+
+it is known what type is expected ?
+
+var name float(1) + float(2);
+
+explicitly stating float seems annoying ?
+
+var name 1 + 2;
+
+
+var name0 point(1:2:3);
+var name1 name0 + point(1:2:3);
+var name2 point(name0.x:0:2);
+
+
+
+
+
+
+
+Index Management ?
+should be seperate from floating point stuff ?
+
+[0]
+1 Index of Value 0
+
+[0 : 1]
+2 Index of Value 1 and 2
+
+[0 ~ 2]
+Values going from 0 to 2
+so same as
+[0 : 1 : 2]
+
+
+
+[0 : 2] : [1 : 3]
+2 sets of Indexes
+set 1 is 0 and 2
+set 2 is 1 and 3
+
+
+
+
+
+
+

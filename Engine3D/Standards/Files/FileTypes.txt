@@ -1,0 +1,26 @@
+﻿
+new Files ...
+... end with .ymt
+... start with a File Type
+
+File Types
+	Index
+	Body
+	Scene
+
+to help identify
+	FileName1.index.ymt
+	FileName2.body.ymt
+	FileName3.scene.ymt
+
+[Index]
+LIST of a bunch of known FILE
+along with a NAME for that FILE
+make an INDEXER to find a FILE using a NAME
+	[Body] ./File1.ymt
+	[Body] ./File2.ymt
+	[Body] ./File3.ymt
+	[Index] ./Dir/Index.ymt
+	[Body] ./File4.ymt
+
+

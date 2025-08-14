@@ -1,0 +1,17 @@
+﻿
+Simple
+Contains Actual Numbers, Does Someting
+	Point
+	Angle
+
+Complex
+Container of Simples
+	BoundBox	(Point, Point)	Min	Max
+	Line		(Point, Point)	A	B
+	Ray			(Point, Point)	Pos	Dir
+	Orientation	(Point, Angle)	Pos	Rot
+
+
+NameSpace:	Engire3D.Abstract.3D
+
+

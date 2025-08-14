@@ -1,0 +1,10 @@
+﻿
+should the File Parsers be Here
+
+maybe the specific parsers in the relevent places
+
+but the general file Parser stuff in here
+
+but what about reparsing (back into file) ?
+
+

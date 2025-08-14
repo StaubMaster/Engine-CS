@@ -1,0 +1,14 @@
+﻿think of a better Name
+
+
+
+skip WhiteSpace
+	treat Comments as WhiteSpace
+move foreward
+split subsegments as applicable
+; split command segment
+
+
+
+
+

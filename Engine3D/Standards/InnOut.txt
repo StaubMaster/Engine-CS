@@ -1,0 +1,17 @@
+﻿
+splitting thins into InnPut and OutPut was a nice idea at first
+but dosent really work
+
+right now the only thing in InnPut that is being used is TMovement
+
+and the stuff in OutPut is basically just the old Graphics Folder
+
+so, remove old Graphics Folder and rename OutPut
+
+put YMT_Display in there too and rename it back to Window
+
+put UI stuff from VoidFactory in there too,
+but maybe organize first
+
+
+

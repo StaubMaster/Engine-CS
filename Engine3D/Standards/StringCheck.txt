@@ -1,0 +1,9 @@
+﻿
+
+
+string checks
+    so instead of checking every single char from a to z
+    you just check if it is >= a and <= z
+
+
+

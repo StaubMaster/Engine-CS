@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Deprecated\InnPut\KeyBoard\**" />
+    <Compile Remove="Deprecated\InnPut\Mouse\**" />
+    <Compile Remove="Deprecated\InnPut\ValueControl\**" />
+    <Compile Remove="Deprecated\InnPut\KeyBoard\**" />
+    <Compile Remove="Deprecated\InnPut\Mouse\**" />
+    <Compile Remove="Deprecated\InnPut\ValueControl\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
+    <None Remove="Deprecated\InnPut\KeyBoard\**" />
+    <None Remove="Deprecated\InnPut\Mouse\**" />
+    <None Remove="Deprecated\InnPut\ValueControl\**" />
+    <None Remove="Deprecated\InnPut\KeyBoard\**" />
+    <None Remove="Deprecated\InnPut\Mouse\**" />
+    <None Remove="Deprecated\InnPut\ValueControl\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Deprecated\CBodyOld.cs" />
+    <Compile Remove="GraphicsOld\Forms\Movement.cs" />
+    <Compile Remove="OutPut\Shader\SShaderFileTemplate.cs" />
+    <Compile Remove="OutPut\Shader\SShaderProgramTemplate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.9.4" />
+  </ItemGroup>
+
+</Project>

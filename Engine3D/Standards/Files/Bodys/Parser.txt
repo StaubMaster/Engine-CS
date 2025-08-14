@@ -1,0 +1,68 @@
+﻿
+the old Parser is kind of ugly but it works
+
+create a new parser that is not backwards compatible
+if the new one dosent work for a file: try the old one
+
+how should the new one work
+
+
+file starts with "YMT?" followed by '\n'
+
+then Headers
+[Manual] or [Automatic]
+
+this tells the Parser what parsers to use
+[Automatic] is simpler and faster
+[Manual] is more complex and gives more control
+
+
+
+[Automatic]
+only v (vertex) and t (triangle)
+
+
+
+Lines in [Manual]
+
+vertex: 02 : 23 + 2 : 23;	#example
+
+Lines start with an Indicator and end with ';'
+Comments go from '#' to the next '\n'
+
+
+
+math: asd = 12 + 34;	# math old
+asd = 12 + 34;			# math new
+if the line contains '=' then its a math assign
+no need for indicating math
+variables can only contain [0..9] [A..Z] [a..z] [_]
+if only [0..9] then its a literal number (allow starting with digits ?)
+allow 0x for hexadecimal ?
+
+
+
+belt00 id the old systems
+new should be
+belt(-+<>): 0 : 2 : 3 : 4;
+belt(): 0 : 2 : 3 : 4;
+- is open
++ is closed
+> is foreward
+< is backward
+empty is default
+multiple will use last
+basically start with default values, then go over list and change to whatever is seen
+if unexpected, ignore ? throw error ?
+have strict mode and lenient mode
+
+
+
+change Axis ?
+
+change Index
+i want to split these into Abstract and Skin files
+so Index in Abstract only needs to change the vertex index
+
+
+

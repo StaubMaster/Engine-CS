@@ -1,0 +1,18 @@
+﻿
+Text kind of sucks and I have lost track of what all the variables do
+
+also having a Coordinate converter would be helpfull
+in general I think
+
+also for stuff like Forms
+
+
+
+the Coordinate systems are
+	pixels		[  0 : n  ]
+	normal0		[  0 : 1  ]
+	normal1		[ -1 : +1 ]
+|
+
+
+

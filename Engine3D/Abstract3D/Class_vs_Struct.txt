@@ -1,0 +1,16 @@
+﻿
+change all these to structs
+
+default contructor:
+	use a static readonly instance
+
+passing:
+	passing by value instead of referance might be slower ?
+
+	Type				:	sizeof
+	Point3D				:	12 Bytes
+	Angle3D				:	36 Bytes
+	Transformation3D	:	48 Bytes
+	Ray3D				:	24 Bytes
+	AxisBox3D			:	24 Bytes
+

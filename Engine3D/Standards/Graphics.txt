@@ -1,0 +1,36 @@
+﻿
+YMT_Dispaly
+	option 1.
+		rename to Display
+		turn into Wrapper for GL_Control and GameWindow
+	option 2.
+		rename to Window
+		make new Wrapper for GL_Control ?
+		they should be similar
+		make a wrapper and inherit both from there ?
+
+
+
+GLSL
+	the shader Files should be cleaned up anyway
+	put them in /YMT/ ?
+		that is more for 3D Models
+		and other YMT related stuff
+		GLSL is not YMT
+	put them in /VoidFactory/Config/ ?
+		thats where they are used
+		so it kinda makes sense
+
+
+
+Buffer
+	make a Wrapper for ShaderPrograms
+		they know what their Buffers should look like
+		they know exactly what unifroms they want to have
+			if a uniform isnt found, give an error
+		should they know what files they uses
+			
+|
+
+
+

@@ -1,0 +1,16 @@
+﻿
+
+Remember at what char Index a Command starts and Ends
+dont remove WhiteSpace
+but skip instead ?
+
+
+
+turn the Command into a List of Changes
+when something changes:
+	undo Changes up to that point
+	then redo everything after that
+	dont do that if in the first half ?
+
+
+

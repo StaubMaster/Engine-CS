@@ -1,0 +1,55 @@
+﻿
+right now both are unorganized and need a lot of extra where they are used
+
+make static classes for each "type" ?
+	Body.Shader.
+	Body.Shader.Default()
+	Body.Buffer.
+
+different Uniforms
+	update sometimes
+	update once per frame
+	update multiple times per frame
+
+	sometimes and once per frame can be combined
+
+	multiple times per frame shouldnt be done at all ?
+	use instances instead
+		Trans of Bodys
+
+new Uniforms
+	do uniforms need to store anything
+	the only have setters anyway
+	but with something kile depth
+		if far changes, then the new values need near to calculate
+		but aparently you can get that data out of the shader
+		so you can just read it
+		that can only be done if the program is bound
+		but rebinding program is inefficient so dont do that anyway
+
+	is a Class needed ?
+		since no data is saved, could I just make it static ?
+		uniform location needs to be saved , so store that ?
+
+
+
+
+Frame()
+	ShaderProgram.Use()
+	update once per frame Uniforms
+		update once per Body uniforms
+		draw
+|
+
+
+Graphics
+Graphics.Display
+Graphics.Shader
+Graphics.Shader.ShaderCode.cs
+Graphics.Shader.ShaderProgram.cs
+Graphics.Shader.Uniform
+Graphics.OAR.cs
+Graphics.Text.cs
+
+
+

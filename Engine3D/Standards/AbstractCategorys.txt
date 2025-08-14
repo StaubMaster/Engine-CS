@@ -1,0 +1,38 @@
+﻿
+Abstract3D
+
+	Basic
+		Punkt	(Point)	problem with renaming, might interfere with Drawing.Point
+		Winkl	(Angle)
+		TransFormation
+		Ray
+		AxisBox
+
+	Poly
+		PolyHedra
+			Abstract
+			Skin
+				Simple
+				Texture
+		PolySoma
+		Abstract PolyHedra (for Math) vs Drawable Poly
+
+	Intersekt
+
+Entity
+	PolyHedra in here ?
+		
+	TransBody
+
+
+Miscellaneous
+	BitManipulation
+	Noise
+	Grid2D
+
+Deprecated
+
+|
+
+
+

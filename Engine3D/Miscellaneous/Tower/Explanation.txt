@@ -1,0 +1,42 @@
+﻿
+Tower:
+	can have Platforms
+	but also direct Support Rods
+
+Platform:
+	bigger ones can have platforms
+	the platfroms can have Support Rods
+		in the Images only the 6-Platforms have Rods, in the Corners
+		but not the 8-Platforms
+		also 2 Platforms can DoppelDecker and attach the rods together
+		and the Rods can also go below the Platform
+	huge ones can have even larger platforms
+		Images:
+			12-Platform at the very top
+			Supports at some places in the center of Edges
+
+Support:
+	Rods
+	the Antenna Attachments are made to be attached to Rods
+		so on "Skeleton"Towers they can be directly attached
+		otherwise a Support Rod is itself attached somehow
+
+Attachment:
+	Circle:
+		Center
+		off-Center
+	Long:
+		Top and Bottom, allways Central
+
+Antenna:
+	Modern:
+		Circle
+		Long
+	Old:
+		Pole
+		Rib-Cage ?
+
+|
+
+
+

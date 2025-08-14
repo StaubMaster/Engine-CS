@@ -1,0 +1,34 @@
+﻿
+put on GitHub
+	to revert when something dosent work anymore
+	or put on GitHub after sorting things ?
+
+
+
+categorize stuff
+especially in Abstract
+	split PolyHedra into
+		Abstract PolyHedra (Skeleton)
+		PolyHedra Skin
+			Simple / Texture
+		Transformed PolyHedra
+	File Context
+		for anything that comes from a file
+		for debugging
+		also make debugging better
+
+put new Graphic stuff into old stuff
+	only the surface2D stuff dosent have it currently
+	it's a lot
+	but also I feel kind of sentimental about deleting it
+
+also kind of the reason why the old file parsing stuff still exists
+	should probably just convert everything to the new stanard
+	but thats also kind of a lot
+	its not like I'm gonna make things with the old standards anymore
+
+
+
+stuff to (re)add in the future
+	spline curves (interpolation)
+	

@@ -1,0 +1,31 @@
+﻿
+
+different Types of Bodys
+	Abstract
+		only corners and triangle Faces
+	!Flat Colored Body (old and new Format)
+	!	old: no simple way to convert, would have to redo the converter
+	!	new: is new and better but would like to reorganize
+	Color to add onto an Abstract Body
+		still has referance to Abstract body
+	Textured (not made yet)
+		also add onto the abstract body
+
+
+
+MetaData:
+YMT?				: at start of first line to indicate .ymt Files
+Manual/Automatic	: to indicate if file was made manually or automatically
+
+Extention:		.poly.ymt
+Identifyer:		Polyhedra
+Description:	Abstract Body, only Points and Triangles
+
+Extention:		.skin.ymt
+Identifyer:		Flat/Texture
+Description:	adds colors or textures to a Polyhedra
+
+Extention:		.body.ymt
+Identifyer:		Body
+Description:	indicates Pairs of Polyhedra and Skins
+

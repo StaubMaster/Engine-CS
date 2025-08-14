@@ -1,0 +1,44 @@
+﻿
+port plane to new version
+or just redo from the beginning
+
+maybe start implementing parts into the new version
+
+parts to replace
+	Window / Base Control
+	Production
+		Buildings
+	Inventory
+		Items
+	Surface2D
+|
+
+
+
+Voxels
+	replace Flat Plane with a Voxel Plane
+	voxels should be smaller then in MineCraft in order to provide a differant experiance
+	and for better detail ?
+
+	make it 2 Sided (height 0 is the middle)
+	have a Chunk Index Limit of short.Max or something
+	so that the whole thing can be explored in a reasonable amout of time
+	
+	calculare Position relative to the Chunk
+		to prevent float rounding errors
+
+	make non-Cube Voxels
+	Concrete:	perfect Cube
+	Stone:		slight imperfections (random offset of corners)
+	Gravel:		form Piles ?
+		if it has no "Powder" Neighbours and no Solid Neightbours
+			bottom should spead out a little
+			top should go into a 
+		if Solid Neightbours
+			only spead bottom to edge
+		if Powder Neightours
+			connect with that
+|
+
+
+
