@@ -16,17 +16,17 @@ namespace Engine3D.OutPut.Uniform.Specific
 
         public CUniformTransformation() : base(3)
         {
-            Point3D.ShaderFloats(null, Data, 0 * Size);
-            Angle3D.ShaderFloats(null, Data, 1 * Size);
+            Point3D.ShaderFloats(Point3D.Null(), Data, 0 * Size);
+            Angle3D.ShaderFloats(Angle3D.Null(), Data, 1 * Size);
         }
         public CUniformTransformation(Point3D p) : base(3)
         {
             Point3D.ShaderFloats(p, Data, 0 * Size);
-            Angle3D.ShaderFloats(null, Data, 1 * Size);
+            Angle3D.ShaderFloats(Angle3D.Null(), Data, 1 * Size);
         }
         public CUniformTransformation(Angle3D w) : base(3)
         {
-            Point3D.ShaderFloats(null, Data, 0 * Size);
+            Point3D.ShaderFloats(Point3D.Null(), Data, 0 * Size);
             Angle3D.ShaderFloats(w, Data, 1 * Size);
         }
         public CUniformTransformation(Point3D p, Angle3D w) : base(3)

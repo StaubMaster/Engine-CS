@@ -2,38 +2,56 @@
 
 namespace Engine3D.Abstract3D
 {
-    public class Angle3D
+    /* redesign
+     * 
+     */
+    public struct Angle3D : Graphics.Basic.Data.IData
     {
-        private double _A;   // Y _ C
-        private double _S;   // _ X C
-        private double _D;   // Y X _
+        public const int Size = sizeof(float) * 3 * 3;
 
-        private double sinA;
-        private double sinS;
-        private double sinD;
+        private float sinA;
+        private float sinS;
+        private float sinD;
 
-        private double cosA;
-        private double cosS;
-        private double cosD;
+        private float cosA;
+        private float cosS;
+        private float cosD;
+
+        private float _A;   // Y _ C
+        private float _S;   // _ X C
+        private float _D;   // Y X _
 
         public double A
         {
             get { return _A; }
-            set { _A = value; SinCos(_A, ref sinA, ref cosA); }
+            set { _A = (float)value; SinCos(_A, ref sinA, ref cosA); }
         }
         public double S
         {
             get { return _S; }
-            set { _S = value; SinCos(_S, ref sinS, ref cosS); }
+            set { _S = (float)value; SinCos(_S, ref sinS, ref cosS); }
         }
         public double D
         {
             get { return _D; }
-            set { _D = value; SinCos(_D, ref sinD, ref cosD); }
+            set { _D = (float)value; SinCos(_D, ref sinD, ref cosD); }
         }
 
 
-        public Angle3D()
+        public static Angle3D Default()
+        {
+            return new Angle3D(0, 0, 0);
+        }
+        public static Angle3D Null()
+        {
+            return new Angle3D(double.NaN, double.NaN, double.NaN);
+        }
+        public bool Is()
+        {
+            return (!double.IsNaN(_A) && !double.IsNaN(_S) && !double.IsNaN(_D));
+        }
+
+        /*public Angle3D()
         {
             _A = 0;
             _S = 0;
@@ -46,12 +64,20 @@ namespace Engine3D.Abstract3D
             cosA = 1;
             cosS = 1;
             cosD = 1;
-        }
+        }*/
         public Angle3D(double a, double s, double d)
         {
-            _A = a;
-            _S = s;
-            _D = d;
+            _A = (float)a;
+            _S = (float)s;
+            _D = (float)d;
+
+            sinA = 0;
+            sinS = 0;
+            sinD = 0;
+
+            cosA = 1;
+            cosS = 1;
+            cosD = 1;
 
             SinCos();
         }
@@ -60,9 +86,17 @@ namespace Engine3D.Abstract3D
             double len;
             len = (dir.Y * dir.Y) + (dir.C * dir.C);
 
-            _A = Math.Atan2(dir.Y, dir.C);
-            _S = Math.Atan2(dir.X, Math.Sqrt(len));
+            _A = (float)Math.Atan2(dir.Y, dir.C);
+            _S = (float)Math.Atan2(dir.X, Math.Sqrt(len));
             _D = 0;
+
+            sinA = 0;
+            sinS = 0;
+            sinD = 0;
+
+            cosA = 1;
+            cosS = 1;
+            cosD = 1;
 
             SinCos();
         }
@@ -84,10 +118,10 @@ namespace Engine3D.Abstract3D
             );
         }
 
-        private static void SinCos(double w, ref double sin, ref double cos)
+        private static void SinCos(float w, ref float sin, ref float cos)
         {
-            sin = Math.Sin(w);
-            cos = Math.Cos(w);
+            sin = (float)Math.Sin(w);
+            cos = (float)Math.Cos(w);
         }
         private void SinCos()
         {
@@ -98,9 +132,9 @@ namespace Engine3D.Abstract3D
 
 
 
-        private static void rotate(ref double pls, ref double mns, double sin, double cos)
+        private static void rotate(ref float pls, ref float mns, float sin, float cos)
         {
-            double tmp;
+            float tmp;
             tmp = cos * pls - sin * mns;
             mns = cos * mns + sin * pls;
             pls = tmp;
@@ -247,7 +281,7 @@ namespace Engine3D.Abstract3D
         }
         public static void ShaderFloats(Angle3D wnk, float[] flt, int idx)
         {
-            if (wnk != null)
+            if (wnk.Is())
             {
                 flt[idx] = (float)wnk.sinA; idx++;
                 flt[idx] = (float)wnk.sinS; idx++;
@@ -265,6 +299,34 @@ namespace Engine3D.Abstract3D
                 flt[idx] = 1; idx++;
                 flt[idx] = 1; idx++;
             }
+        }
+
+
+
+
+
+        public void ToUniform(params int[] locations)
+        {
+            OpenTK.Graphics.OpenGL.GL.Uniform3(locations[0], 2, new float[6]
+            {
+                sinA, sinS, sinD,
+                cosA, cosS, cosD,
+            });
+        }
+
+        public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
+        {
+            OpenTK.Graphics.OpenGL.GL.EnableVertexAttribArray(bindIndex[0]);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribPointer(bindIndex[0], 3, OpenTK.Graphics.OpenGL.VertexAttribPointerType.Float, false, stride, offset);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribDivisor(bindIndex[0], divisor);
+            offset += sizeof(float) * 3;
+
+            OpenTK.Graphics.OpenGL.GL.EnableVertexAttribArray(bindIndex[1]);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribPointer(bindIndex[1], 3, OpenTK.Graphics.OpenGL.VertexAttribPointerType.Float, false, stride, offset);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribDivisor(bindIndex[1], divisor);
+            offset += sizeof(float) * 3;
+
+            offset += sizeof(float) * 3;
         }
     }
 }

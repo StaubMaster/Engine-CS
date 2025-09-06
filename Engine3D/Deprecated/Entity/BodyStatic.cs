@@ -4,6 +4,8 @@ using System.IO;
 
 using Engine3D.Abstract3D;
 using Engine3D.GraphicsOld;
+using Engine3D.Graphics;
+using Engine3D.Graphics.Basic.Data;
 
 namespace Engine3D.Entity
 {
@@ -163,6 +165,45 @@ namespace Engine3D.Entity
             Buffer.Draw();
         }
 
+        public void ToBuffer(Graphics.Display3D.PHEIBuffer buffer)
+        {
+            buffer.Bind_Main_Corners(Ecken);
+
+            {
+                IndexTriangle[] faces = new IndexTriangle[Seiten.Length];
+                ColorUData[] cols = new ColorUData[Seiten.Length];
+
+                for (int i = 0; i < Seiten.Length; i++)
+                {
+                    Tri t = Seiten[i];
+                    faces[i] = new IndexTriangle(t.C, t.B, t.A);
+                    cols[i] = new ColorUData(t.Color);
+                }
+
+                buffer.Bind_Main_Indexes(faces);
+                buffer.Bind_Main_Colors(cols);
+            }
+        }
+        public PolyHedra ToPolyHedra()
+        {
+            PolyHedra template = new PolyHedra();
+            template.Edit_Begin();
+
+            for (int i = 0; i < Ecken.Length; i++)
+            {
+                template.Edit_Insert_Corner(Ecken[i]);
+            }
+
+            for (int i = 0; i < Seiten.Length; i++)
+            {
+                Tri t = Seiten[i];
+                template.Edit_Insert_Face(new IndexTriangle(t.C, t.B, t.A));
+                template.Edit_Change_Color((uint)i, t.Color);
+            }
+
+            template.Edit_Stop();
+            return template;
+        }
 
         public static void BufferCreate(BodyStatic body)
         {

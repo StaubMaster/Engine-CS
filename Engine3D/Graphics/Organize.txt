@@ -1,0 +1,203 @@
+﻿
+this sucks
+I look at how other people do this
+and their code is allways organized
+and makes sense
+mine is mostly thrown together
+a lot of this stuff is just rewriting stuff that already exists
+i dont use matrixes because I think that what I do is better
+
+
+
+now that thats dont
+how to I ogranize this stuff
+
+I had the Idea of putting PolyHedra Shaders/Buffers inside PolyHedra
+but there might be a lot so thats probably a bad Idea ?
+
+have a NameSpace in Graphics for PolyHedra ?
+NameSpace for each Category
+
+
+
+PolyHedra:
+	Buffer:
+		Basic
+		Instance
+			is the same as Basic but with Instance Buffer
+	Shader:
+		Uniform Trans
+		Instance Trans
+		Icons
+
+Text:
+	Text
+	Text 3D ?
+	Text changes:
+		right now each Char has all Text Position / Size Info
+		but apart from Offset and Char, everything is the same per String
+		use Uniform Buffers ?
+
+		Text that changes every frame vs only sometimes ?
+		right now Text is redone every Frame
+
+AxisBox:
+Lines:
+
+
+
+Render Manager ?
+	if View changes, right now I need to tell each Shader (that has View) to change it
+	have a RM that automatically changes Uniform in each Shader
+
+	Problem:
+		what if something is different from the norm
+		like a single PH using a different Light ?
+			that isnt managed right now
+			and if I would implement that
+			I would just make each PH use its own / have Categorys
+	Solution:
+		Ignore
+
+	how to Update Uniforms ?
+	List of Uniform is Shaders
+		takes a Uniform Name
+		then looks for that Uniform in each Shader in the RM
+	so currently each Shader has its own Uniforms
+	so just have those in the RM
+
+	if a new Uniform is added, is it put into the RM ?
+	also how to avoid Categorys from chagning things for eachother
+	so if PolyHedra has a Light and the Icons have a Light
+		they shouldnt interact with eachother
+
+	have seperate RM for each Category ?
+	one for 3D stuff, one for 2D (User Interface)
+
+
+
+Context Object(s)
+	ScreenSize
+		UI stuff needs ScreenSize for converting from Pixel to/from Normal[0:1]
+		use a ScreenSize object in Window to automatically allways "syncronize" the Window size
+
+
+
+
+
+I should figure out a good way that this should be organized
+
+have PolyHedra seperate from Shaders and Buffers
+PolyHedra can create Buffer Data, but what is done with that Data dose not concern it
+
+Buffer and Shader should be somewhat seperate ?
+
+Buffer for PolyHedra is used in
+	Uniform Shader
+	Icon Shader
+	Instance Shader
+		uses extenden Version of PolyHedra Buffer
+
+NameSpace		Graphics.PolyHedra
+Class			Graphics.PolyHedra.Buffer
+Class			Graphics.PolyHedra.BufferInst
+Class			Graphics.PolyHedra.ShaderUniTrans
+Class			Graphics.PolyHedra.ShaderInstTrans
+Class			Graphics.PolyHedra.ShaderIcon
+
+how should Uniforms work
+Types:
+	"Instance" Uniforms
+		not sure what to call these
+		they are the ones that are different for each Object being drawn
+	"Global" Uniforms
+		the ones that are the same for every Object
+		but might be differnt per Frame
+
+how should these be managed
+Inspire ?
+	look how others manage
+
+I am wasting time
+it has been over a year by now and this still sucks
+i dont even have textures
+or shadows
+or anything else that other people could have done in a month
+just a bunch of vaguely connected bearly working ideas
+and i have to reorganize things every month or so because i dont think ahead
+
+	others apparently dont need to worry about managing accross shaders
+	because they dont use multiple shaders
+
+	the one guy uses struct uniforms
+	which requires a location for every individual struct element
+	for an array, you need to locate every struct element in every array element
+	also the array in the uniform must have a const size
+
+	this could be avoided with a Shader Storage
+	but lets not think too far ahead
+	also that would require a different Storage for each Light type ?
+
+	just make different Fragment Shaders, the other shader stages should be the same
+	how would one use those different Fragment Shaders ?
+
+	right now each shader has its files hard-Coded
+	this is probably bad ?
+
+	so specify this stuff in the files
+	but then is the whole knowing Uniforms bit needed ?
+
+	if I'm gonna make a RenderManager
+	then that would know about uniforms ?
+
+	so all Shaders should be generic (again)
+	the RM has a List of Uniforms
+		which has a List of Shaders that use it ?
+		or should the Shaders have a List of Uniforms
+	but how would I set a Value ?
+	I dont like using a String, since that seems kind of slow
+	at the beginning get an index for each Uniform, of where it is in the RM List ?
+	the most convenient would using Members
+	so have the RM be abstract
+
+	and make a different RM for 3D stuff and UI stuff
+	I cant even think of that many places I would need a different RMs
+	there is no edge case where I want something like the surface and object so use a different view
+	or different lights
+
+	am I thinking too far ahead again ?
+	just only use one Shader for now
+
+	so how should Uniforms work ?
+	how should the be used ?
+RenderManager.ViewTrans.Value(view_trans);
+Value(view_trans)
+{
+	for (int i = 0; i < ShaderUnis.Length; i++)
+	{
+		ShaderUnis[i].Value(view_trans);
+	}
+}
+
+	UniformBase
+		has a Location and a Program
+	UniformList
+		list of UniformBase
+	Shader
+		list of UniformBase
+
+
+
+
+
+make everything an Instance
+figure out Indirect Rendering
+	put multiple things into a single Buffer
+	remember start and length index
+
+
+
+|
+
+
+

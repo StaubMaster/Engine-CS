@@ -67,7 +67,7 @@ namespace Engine3D.Abstract3D
             {
                 PolyHedra body = TBodyFile.LoadTextFile(path);
                 BodyList.Add(body);
-                BufferList.Add(body.ToBufferElem());
+                BufferList.Add(body.ToBuffer());
             }
             public void Insert(int idx, Point3D pos, Angle3D rot)
             {

@@ -240,7 +240,7 @@ namespace Engine3D.Entity
 
             BufferFill_Ecken();
         }
-        public Point3D Get_Ecken_Move(int idx)
+        public Point3D? Get_Ecken_Move(int idx)
         {
             if (idx == -1)
                 return null;

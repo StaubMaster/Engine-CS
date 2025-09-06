@@ -8,6 +8,13 @@ namespace Engine3D.Abstract3D
         public Point3D Min;
         public Point3D Max;
 
+        /*private static AxisBox3D Default()
+        {
+            AxisBox3D ab = new AxisBox3D();
+            ab.Min = +Point3D.Inf_P;
+            ab.Max = +Point3D.Inf_N;
+            return ab;
+        }*/
         private AxisBox3D()
         {
             Min = +Point3D.Inf_P;

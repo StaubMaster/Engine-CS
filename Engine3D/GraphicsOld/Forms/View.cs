@@ -17,7 +17,7 @@ namespace Engine3D.GraphicsOld.Forms
 
         public View()
         {
-            Trans = new Transformation3D();
+            Trans = Transformation3D.Default();
 
             Fov = 0.5f;
 

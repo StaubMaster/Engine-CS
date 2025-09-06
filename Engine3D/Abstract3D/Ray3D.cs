@@ -7,10 +7,17 @@ namespace Engine3D.Abstract3D
         public Point3D Pos;
         public Point3D Dir;
 
+        /*private static Ray3D Default()
+        {
+            Ray3D ray = new Ray3D();
+            ray.Pos = new Point3D();
+            ray.Dir = new Point3D();
+            return ray;
+        }*/
         public Ray3D()
         {
-            Pos = new Point3D();
-            Dir = new Point3D();
+            Pos = Point3D.Default();
+            Dir = Point3D.Default();
         }
         public Ray3D(Point3D pos, Point3D dir)
         {
@@ -25,7 +32,7 @@ namespace Engine3D.Abstract3D
         public Point3D Scale(double t)
         {
             if (double.IsNaN(t))
-                return null;
+                return Point3D.Null();
             return Pos + (Dir * t);
         }
 

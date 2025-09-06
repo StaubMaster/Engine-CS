@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Engine3D.Graphics;
+using Engine3D.Graphics.Basic.Data;
 using Engine3D.Miscellaneous;
 
 namespace Engine3D.Abstract3D
@@ -63,7 +64,7 @@ namespace Engine3D.Abstract3D
     {
         private ArrayList<Point3D> Corners;
         private ArrayList<IndexTriangle> Faces;
-        private ArrayList<uint> Colors;
+        private ArrayList<ColorUData> Colors;
 
         private bool IsEdit;
 
@@ -71,7 +72,7 @@ namespace Engine3D.Abstract3D
         {
             Corners = new ArrayList<Point3D>();
             Faces = new ArrayList<IndexTriangle>();
-            Colors = new ArrayList<uint>();
+            Colors = new ArrayList<ColorUData>();
 
             IsEdit = false;
         }
@@ -119,12 +120,12 @@ namespace Engine3D.Abstract3D
         {
             if (!IsEdit) { throw new ENotEdit(); }
             Faces.Insert(face);
-            Colors.Insert(0xFFFFFF);
+            Colors.Insert(new ColorUData(0xFFFFFF));
         }
         public void Edit_Change_Color(uint idx, uint color)
         {
             if (!IsEdit) { throw new ENotEdit(); }
-            Colors[idx] = color;
+            Colors[idx] = new ColorUData(color);
         }
 
 
@@ -151,7 +152,7 @@ namespace Engine3D.Abstract3D
         }
         public Point3D CalcAverage()
         {
-            Point3D Avg = new Point3D();
+            Point3D Avg = Point3D.Default();
 
             for (int i = 0; i < CornerCount(); i++)
             {
@@ -190,7 +191,7 @@ namespace Engine3D.Abstract3D
                 Point3D c = Corners[face.C];
 
                 Intersekt.RayInterval d;
-                if (trans != null)
+                if (trans.Is())
                 {
                     d = Abstract3D.Intersekt.Ray_Triangle(ray,
                         trans.TFore(a),
@@ -217,17 +218,23 @@ namespace Engine3D.Abstract3D
             return new Intersekt.RayInterval(ray, interval, idx);
         }
 
-        public void ToBufferElem(BodyElemBuffer buffer)
+        public void ToBuffer(BodyElemBuffer buffer)
         {
             buffer.Bind_Corners(Corners.ToArray());
             buffer.Bind_Indexes(Faces.ToArray());
             buffer.Bind_Colors(Colors.ToArray());
         }
-        public BodyElemBuffer ToBufferElem()
+        public BodyElemBuffer ToBuffer()
         {
             BodyElemBuffer buffer = new BodyElemBuffer();
-            ToBufferElem(buffer);
+            ToBuffer(buffer);
             return buffer;
+        }
+        public void ToBuffer(Graphics.Display3D.PHEIBuffer buffer)
+        {
+            buffer.Bind_Main_Corners(Corners.ToArray());
+            buffer.Bind_Main_Indexes(Faces.ToArray());
+            buffer.Bind_Main_Colors(Colors.ToArray());
         }
 
         public static class Generate
@@ -359,7 +366,7 @@ namespace Engine3D.Abstract3D
                 }
 
                 Point3D ecke;
-                Angle3D w = new Angle3D();
+                Angle3D w = Angle3D.Default();
 
                 double vert, hori;
                 uint s0, s1;
@@ -544,9 +551,9 @@ namespace Engine3D.Abstract3D
                     p = template.Corners[i];
 
                     double f = scale / p.Len;
-                    p.Y = p.Y * f;
-                    p.X = p.X * f;
-                    p.C = p.C * f;
+                    p.Y = (float)(p.Y * f);
+                    p.X = (float)(p.X * f);
+                    p.C = (float)(p.C * f);
 
                     template.Corners[i] = p;
                 }

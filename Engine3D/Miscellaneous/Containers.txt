@@ -1,0 +1,44 @@
+﻿
+
+
+for Instances
+an array of Instance data
+Length and Limit
+Count and Capacity
+
+have entry Pointer Objects
+
+
+the Main array holds the data (Buffer)
+
+the Entry array holds Entry Referance Objects
+they have an Index to their Data in the Main Array
+
+when something in the Main Array changes
+then Entrys have their Indexes updated
+
+so whatever else controls the Entry dosent need to care when things change
+
+able to Queue Commands
+
+
+
+
+
+Buffer Manager Thing
+
+preallocate an Array
+used for IndirectDraw
+
+insert Ranges
+check if Range fits
+if not NULL
+if fits allocate and return Entry Object
+
+Entry holds Start and End of Entry
+gets updated when things are moved around
+outside dosent cate
+
+
+
+

@@ -2,23 +2,38 @@
 
 namespace Engine3D.Abstract3D
 {
-    public class Point3D
+    public struct Point3D : Graphics.Basic.Data.IData
     {
-        public double X;
-        public double Y;
-        public double C;
+        public const int Size = sizeof(float) * 3;
 
-        public Point3D()
+        public float Y;
+        public float X;
+        public float C;
+
+        public static Point3D Default()
+        {
+            return new Point3D(0, 0, 0);
+        }
+        public static Point3D Null()
+        {
+            return new Point3D(double.NaN, double.NaN, double.NaN);
+        }
+        public bool Is()
+        {
+            return (!double.IsNaN(Y) && !double.IsNaN(X) && !double.IsNaN(C));
+        }
+
+        /*public Point3D()
         {
             Y = 0;
             X = 0;
             C = 0;
-        }
+        }*/
         public Point3D(double y, double x, double c)
         {
-            Y = y;
-            X = x;
-            C = c;
+            Y = (float)y;
+            X = (float)x;
+            C = (float)c;
         }
 
 
@@ -130,7 +145,7 @@ namespace Engine3D.Abstract3D
         }
         public static void ShaderFloats(Point3D pkt, float[] flt, int idx)
         {
-            if (pkt != null)
+            if (pkt.Is())
             {
                 flt[idx] = (float)pkt.Y; idx++;
                 flt[idx] = (float)pkt.X; idx++;
@@ -151,6 +166,23 @@ namespace Engine3D.Abstract3D
             str += X.ToString(Format) + " , ";
             str += C.ToString(Format);
             return str;
+        }
+
+
+
+
+
+        public void ToUniform(params int[] locations)
+        {
+            OpenTK.Graphics.OpenGL.GL.Uniform3(locations[0], Y, X, C);
+        }
+
+        public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
+        {
+            OpenTK.Graphics.OpenGL.GL.EnableVertexAttribArray(bindIndex[0]);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribPointer(bindIndex[0], 3, OpenTK.Graphics.OpenGL.VertexAttribPointerType.Float, false, stride, offset);
+            OpenTK.Graphics.OpenGL.GL.VertexAttribDivisor(bindIndex[0], divisor);
+            offset += Size;
         }
     }
 }

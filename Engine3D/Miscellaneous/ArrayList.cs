@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace Engine3D.Miscellaneous
 {
+    /*  
+     *  this is just List<>,
+     *  with different names and different mechanics
+     *  Trim is just TrimExcess
+     *      I want a Queue
+     *      as in an Array/List that can Queue Insert and Remove
+     *      and then do everything in the Queue in an optimized way
+     */
     public class ArrayList<T>
     {
         private T[] Arr;

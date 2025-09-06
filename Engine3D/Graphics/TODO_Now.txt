@@ -1,0 +1,48 @@
+﻿
+
+
+Graphics.Basic
+Graphics.Basic.Data
+Graphics.Basic.Uniforms
+Graphics.Basic.BaseBuffer.cs
+Graphics.Basic.BaseShader.cs
+Graphics.Basic.GenericShader.cs
+Graphics.Basic.ShaderCode.cs
+
+Graphics.Manager
+Graphics.Telematry
+
+Graphics.Display2D
+Graphics.Display3D
+
+
+
+
+
+create Struct for PerBody InfoData
+	OtherColor
+	OtherColorInter
+	GrayInter
+	Trans
+
+create shaders that also split these into PerBody and AllBody components
+
+
+
+first change PolyHedra Buffers to not use Elements and to Use Textures ?
+that would require changing File Parsing,
+	I dont feel like doing that
+	should have thaught ahead maybe
+
+
+
+
+
+
+Finish Complex Uniforms
+create Screen Size thing
+create new Icon Shader using UIGrid
+create UI Manager
+
+
+

@@ -63,7 +63,7 @@ namespace Engine3D.Entity
                 }
 
                 Point3D ecke;
-                Angle3D w = new Angle3D();
+                Angle3D w = Angle3D.Default();
 
                 double vert, hori;
                 uint s0, s1;
@@ -135,7 +135,7 @@ namespace Engine3D.Entity
                 }
 
                 Point3D ecke;
-                Angle3D w = new Angle3D();
+                Angle3D w = Angle3D.Default();
 
                 double vert, hori;
                 uint s0, s1;

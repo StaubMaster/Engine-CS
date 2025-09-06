@@ -16,6 +16,7 @@ namespace Engine3D.Graphics.Shader
         {
             ID = GL.CreateProgram();
             Compile(code);
+            //ConsoleLog.Log("Shader Program: " + ID);
         }
         ~BaseShader()
         {
@@ -44,8 +45,14 @@ namespace Engine3D.Graphics.Shader
         public int UniformFind(string name)
         {
             int location = GL.GetUniformLocation(ID, name);
-            if (location == -1) { ConsoleLog.LogError("Uni '" + name + "' not found."); }
-            else { ConsoleLog.LogInfo("Uni '" + name + "' found at " + location + "."); }
+            if (location == -1)
+            {
+                //ConsoleLog.LogError("Uni '" + name + "' not found in Program " + ID + ".");
+            }
+            else
+            {
+                //ConsoleLog.LogInfo("Uni '" + name + "' found at " + location + " in Program " + ID + ".");
+            }
             return location;
         }
 

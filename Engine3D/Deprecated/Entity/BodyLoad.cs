@@ -164,10 +164,10 @@ namespace Engine3D.Entity
                 }
                 private Point3D ParsePunkt(int segIdx)
                 {
-                    Point3D p = new Point3D();
-                    if (!double.TryParse(LineSegments[segIdx + 0], out p.Y)) { Error("Y"); }
-                    if (!double.TryParse(LineSegments[segIdx + 1], out p.X)) { Error("X"); }
-                    if (!double.TryParse(LineSegments[segIdx + 2], out p.C)) { Error("C"); }
+                    Point3D p = Point3D.Default();
+                    if (!float.TryParse(LineSegments[segIdx + 0], out p.Y)) { Error("Y"); }
+                    if (!float.TryParse(LineSegments[segIdx + 1], out p.X)) { Error("X"); }
+                    if (!float.TryParse(LineSegments[segIdx + 2], out p.C)) { Error("C"); }
                     return p;
                 }
 

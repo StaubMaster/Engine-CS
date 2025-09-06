@@ -12,8 +12,6 @@ out Vert {
 	vec3 Absolut;
 } vs_out;
 
-
-
 void rot2D(inout float pls, inout float mns, in float fsin, in float fcos)
 {
 	float tmp;

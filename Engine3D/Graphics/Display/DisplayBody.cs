@@ -12,6 +12,7 @@ using Engine3D.OutPut.Uniform;
 using Engine3D.OutPut.Uniform.Specific;
 using Engine3D.OutPut.Uniform.Generic.Float;
 using Engine3D.BodyParse;
+using Engine3D.Graphics.Display3D;
 
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
@@ -20,14 +21,15 @@ namespace Engine3D.Graphics.Display
     public class DisplayPolyHedra
     {
         public readonly PolyHedra PHedra;
-        private readonly BodyElemBuffer Buffer;
+        private readonly PHEIBuffer Buffer;
         private readonly string Path;
 
         public DisplayPolyHedra(string path)
         {
             Path = path;
             PHedra = TBodyFile.LoadTextFile(path);
-            Buffer = PHedra.ToBufferElem();
+            Buffer = new PHEIBuffer();
+            PHedra.ToBuffer(Buffer);
         }
 
         public Intersekt.RayInterval Intersekt(Ray3D ray, Transformation3D trans)
@@ -41,7 +43,7 @@ namespace Engine3D.Graphics.Display
 
         public void Draw()
         {
-            Buffer.Draw();
+            Buffer.Draw_Main();
         }
 
         public string ToYMT()
@@ -66,7 +68,7 @@ namespace Engine3D.Graphics.Display
         public DisplayBody(string path)
         {
             Body = new DisplayPolyHedra(path);
-            Trans = new Transformation3D();
+            Trans = Transformation3D.Default();
         }
 
         public Intersekt.RayInterval Intersekt(Ray3D ray)

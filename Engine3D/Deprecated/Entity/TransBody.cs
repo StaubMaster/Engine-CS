@@ -19,7 +19,7 @@ namespace Engine3D.Entity
                 Box = Body.BoxFit();
             else
                 Box = Body.BoxDist();
-            Trans = new Transformation3D();
+            Trans = Transformation3D.Default();
         }
         public TransBody(BodyStatic body, bool fitBox, Transformation3D trans)
         {
@@ -37,7 +37,7 @@ namespace Engine3D.Entity
                 Box = Body.BoxFit();
             else
                 Box = Body.BoxDist();
-            Trans = new Transformation3D(pos, new Angle3D());
+            Trans = new Transformation3D(pos, Angle3D.Default());
         }
 
 

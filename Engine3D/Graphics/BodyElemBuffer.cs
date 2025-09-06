@@ -1,5 +1,6 @@
 ﻿using Engine3D.Abstract3D;
 using Engine3D.Graphics.Shader;
+using Engine3D.Graphics.Basic.Data;
 
 using OpenTK.Graphics.OpenGL4;
 
@@ -7,10 +8,10 @@ namespace Engine3D.Graphics
 {
     public class BodyElemBuffer : BaseBuffer
     {
-        private readonly int CornersBuffer;
-        private readonly int IndexesBuffer;
-        private readonly int ColorsBuffer;
-        private int Count;
+        protected readonly int CornersBuffer;
+        protected readonly int IndexesBuffer;
+        protected readonly int ColorsBuffer;
+        protected int ElemCount;
 
         public BodyElemBuffer() : base()
         {
@@ -18,7 +19,7 @@ namespace Engine3D.Graphics
             IndexesBuffer = GL.GenBuffer();
             ColorsBuffer = GL.GenBuffer();
 
-            Count = 0;
+            ElemCount = 0;
         }
         ~BodyElemBuffer()
         {
@@ -28,17 +29,16 @@ namespace Engine3D.Graphics
             GL.DeleteBuffer(ColorsBuffer);
         }
 
-        public void Bind_Corners(Point3D[] corners)
+        public void Bind_Corners(Point3D[] data)
         {
-            RenderPoint3D[] data = RenderPoint3D.Convert(corners);
-
             Use();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, CornersBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * RenderPoint3D.Size, data, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * Point3D.Size, data, BufferUsageHint.StaticDraw);
 
-            GL.EnableVertexAttribArray(0);
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, RenderPoint3D.Size, 0);
+            System.IntPtr offset = System.IntPtr.Zero;
+
+            Point3D.ToBuffer(Point3D.Size, ref offset, 0, 0);
         }
         public void Bind_Indexes(IndexTriangle[] faces)
         {
@@ -47,14 +47,14 @@ namespace Engine3D.Graphics
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexesBuffer);
             GL.BufferData(BufferTarget.ElementArrayBuffer, faces.Length * IndexTriangle.Size, faces, BufferUsageHint.StaticDraw);
 
-            Count = faces.Length * 3;
+            ElemCount = faces.Length * 3;
         }
-        public void Bind_Colors(uint[] colors)
+        public void Bind_Colors(ColorUData[] colors)
         {
             Use();
 
             GL.BindBuffer(BufferTarget.ShaderStorageBuffer, ColorsBuffer);
-            GL.BufferData(BufferTarget.ShaderStorageBuffer, colors.Length * sizeof(uint), colors, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ShaderStorageBuffer, colors.Length * ColorUData.Size, colors, BufferUsageHint.StaticDraw);
         }
 
         public override void Draw()
@@ -62,7 +62,7 @@ namespace Engine3D.Graphics
             Use();
 
             GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, 0, ColorsBuffer);
-            GL.DrawElements(BeginMode.Triangles, Count, DrawElementsType.UnsignedInt, 0);
+            GL.DrawElements(BeginMode.Triangles, ElemCount, DrawElementsType.UnsignedInt, 0);
         }
     }
 }

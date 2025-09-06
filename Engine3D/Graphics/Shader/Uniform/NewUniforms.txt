@@ -1,0 +1,81 @@
+﻿
+
+
+UniformProgramLocation
+{
+	Program
+	Location
+	NeedsUpdate
+	UniformSimple
+}
+
+UniformSimple
+{
+	UniformProgramLocation[]
+
+	UpdateData(Location)
+	: Data;
+	: ChangeData()
+}
+
+ComplexUniform
+{
+	SimpleUniform[] Elements
+}
+
+
+
+Shader
+{
+	UniformProgramLocation[]
+}
+
+Manager
+{
+	ComplexUniform[]
+}
+
+
+
+
+where is new Data stored
+should data storing be done at all ?
+yes
+
+maybe figure out interactions before just coding
+
+
+
+
+
+for each Name
+there is a Unique Location for every Program
+
+
+
+
+
+UniformElement
+	knows GenericShaders it is in
+GenericShader
+	knows UniformElements in it
+
+Update from Value Change
+	go through all ProgramLocations
+	if any Program Is
+		PutData(location)
+		put Data in Program
+	else
+		StoreData()
+		set NeedsUpdate
+
+Update From Shader Activation
+	go through all Uniforms
+	if any NeedsUpdate Is
+		PutData(Location)
+		put Data in Program
+
+Data is stored in Child of UniformElement
+
+
+

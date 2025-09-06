@@ -85,7 +85,7 @@ namespace Engine3D.GraphicsOld
                 1, 1, 1,
             };
         }
-        public RenderTrans(Abstract3D.Point3D pos)
+        public RenderTrans(Abstract3D.Point3D? pos)
         {
             flt = new float[9]
             {
@@ -95,9 +95,9 @@ namespace Engine3D.GraphicsOld
             };
 
             if (pos != null)
-                pos.Floats(flt, 0);
+                pos?.Floats(flt, 0);
         }
-        public RenderTrans(Abstract3D.Angle3D wnk)
+        public RenderTrans(Abstract3D.Angle3D? wnk)
         {
             flt = new float[9]
             {
@@ -107,9 +107,9 @@ namespace Engine3D.GraphicsOld
             };
 
             if (wnk != null)
-                wnk.FloatsSinCos(flt, 3);
+                wnk?.FloatsSinCos(flt, 3);
         }
-        public RenderTrans(Abstract3D.Point3D pos, Abstract3D.Angle3D wnk)
+        public RenderTrans(Abstract3D.Point3D? pos, Abstract3D.Angle3D? wnk)
         {
             flt = new float[9]
             {
@@ -119,11 +119,11 @@ namespace Engine3D.GraphicsOld
             };
 
             if (pos != null)
-                pos.Floats(flt, 0);
+                pos?.Floats(flt, 0);
             if (wnk != null)
-                wnk.FloatsSinCos(flt, 3);
+                wnk?.FloatsSinCos(flt, 3);
         }
-        public RenderTrans(Abstract3D.Transformation3D trans)
+        public RenderTrans(Abstract3D.Transformation3D? trans)
         {
             flt = new float[9]
             {
@@ -134,10 +134,10 @@ namespace Engine3D.GraphicsOld
 
             if (trans != null)
             {
-                if (trans.Pos != null)
-                    trans.Pos.Floats(flt, 0);
-                if (trans.Rot != null)
-                    trans.Rot.FloatsSinCos(flt, 3);
+                if (trans?.Pos != null)
+                    trans?.Pos.Floats(flt, 0);
+                if (trans?.Rot != null)
+                    trans?.Rot.FloatsSinCos(flt, 3);
             }
         }
 

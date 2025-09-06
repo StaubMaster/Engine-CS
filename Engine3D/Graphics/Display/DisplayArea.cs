@@ -41,7 +41,7 @@ namespace Engine3D.Graphics.Display
                 NativeWindowSettings nws = NativeWindowSettings.Default;
                 nws.APIVersion = Version.Parse("4.1");
                 nws.ClientSize = new Vector2i(w, h);
-                nws.Location = new Vector2i(2560 - (10 + w), 10);
+                //nws.Location = new Vector2i(2560 - (10 + w), 10);
 
                 GameWin = new GameWindow(gws, nws);
                 GameWin.RenderFrame += Frame;
@@ -169,19 +169,19 @@ namespace Engine3D.Graphics.Display
 
         public Abstract3D.Point3D MoveByKeys(double speed = 1.0, double fast = 100.0)
         {
-            Abstract3D.Point3D pos = new Abstract3D.Point3D();
-            if (GameWin.IsKeyDown(Keys.D)) { pos.C -= speed; }
-            if (GameWin.IsKeyDown(Keys.E)) { pos.C += speed; }
-            if (GameWin.IsKeyDown(Keys.S)) { pos.Y -= speed; }
-            if (GameWin.IsKeyDown(Keys.F)) { pos.Y += speed; }
-            if (GameWin.IsKeyDown(Keys.LeftShift)) { pos.X -= speed; }
-            if (GameWin.IsKeyDown(Keys.Space))     { pos.X += speed; }
+            Abstract3D.Point3D pos = Abstract3D.Point3D.Default();
+            if (GameWin.IsKeyDown(Keys.D)) { pos.C -= (float)speed; }
+            if (GameWin.IsKeyDown(Keys.E)) { pos.C += (float)speed; }
+            if (GameWin.IsKeyDown(Keys.S)) { pos.Y -= (float)speed; }
+            if (GameWin.IsKeyDown(Keys.F)) { pos.Y += (float)speed; }
+            if (GameWin.IsKeyDown(Keys.LeftShift)) { pos.X -= (float)speed; }
+            if (GameWin.IsKeyDown(Keys.Space))     { pos.X += (float)speed; }
             if (GameWin.IsKeyDown(Keys.LeftControl)) { pos *= fast; }
             return pos;
         }
         public Abstract3D.Angle3D SpinByMouse(double factor = 0.005)
         {
-            Abstract3D.Angle3D rot = new Abstract3D.Angle3D();
+            Abstract3D.Angle3D rot = Abstract3D.Angle3D.Default();
             if (MouseLocked)
             {
                 Vector2 diff = MouseCenterDiff_Vector2();

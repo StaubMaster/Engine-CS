@@ -167,30 +167,34 @@ namespace Engine3D.GraphicsOld.Forms
 
         public Point3D VelPos_Key(double scale = 1.0, double shift = 100.0)
         {
-            Point3D pos = new Point3D();
+            Point3D pos = Point3D.Default();
 
-            if (CheckKey(Keys.D)) { pos.C -= scale; }
-            if (CheckKey(Keys.E)) { pos.C += scale; }
+            if (CheckKey(Keys.D)) { pos.C -= (float)scale; }
+            if (CheckKey(Keys.E)) { pos.C += (float)scale; }
 
-            if (CheckKey(Keys.S)) { pos.Y -= scale; }
-            if (CheckKey(Keys.F)) { pos.Y += scale; }
+            if (CheckKey(Keys.S)) { pos.Y -= (float)scale; }
+            if (CheckKey(Keys.F)) { pos.Y += (float)scale; }
 
-            if (CheckKey(Keys.LeftShift)) { pos.X -= scale; }
-            if (CheckKey(Keys.Space))     { pos.X += scale; }
+            if (CheckKey(Keys.LeftShift)) { pos.X -= (float)scale; }
+            if (CheckKey(Keys.Space))     { pos.X += (float)scale; }
 
             if (CheckKey(Keys.LeftControl)) { pos *= shift; }
 
             return pos;
         }
-        public Angle3D VelRot_Mouse(double scale = 0.005)
+        public Angle3D? VelRot_Mouse(double scale = 0.005)
         {
-            Angle3D rot = null;
+            Angle3D? rot = null;
 
             if (Mouse_fixed)
             {
-                rot = new Angle3D();
-                rot.A = (GameWin.MousePosition.X - Middle.X) * scale;
-                rot.S = (Middle.Y - GameWin.MousePosition.Y) * scale;
+                //rot = new Angle3D();
+                //rot.Value.A = (GameWin.MousePosition.X - Middle.X) * scale;
+                //rot.Value.S = (Middle.Y - GameWin.MousePosition.Y) * scale;
+                rot = new Angle3D(
+                    (GameWin.MousePosition.X - Middle.X) * scale,
+                    (Middle.Y - GameWin.MousePosition.Y) * scale,
+                    0);
             }
             if (Mouse_tabbed)
             {

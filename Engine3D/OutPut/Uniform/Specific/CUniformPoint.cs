@@ -12,7 +12,7 @@ namespace Engine3D.OutPut.Uniform.Specific
 
         public CUniformPoint() : base(1)
         {
-            Point3D.ShaderFloats(null, Data, 0);
+            Point3D.ShaderFloats(Point3D.Null(), Data, 0);
         }
         public CUniformPoint(Point3D p) : base(1)
         {

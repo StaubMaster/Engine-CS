@@ -17,7 +17,7 @@ namespace Engine3D.OutPut
         public DisplayCamera()
         {
             TransUni = new CUniformTransformation();
-            Trans = new Transformation3D();
+            Trans = Transformation3D.Default();
             Depth = new CUniformDepth(0.1f, 100.0f);
             Ray = new Ray3D();
         }
@@ -27,7 +27,7 @@ namespace Engine3D.OutPut
             TransUni.Pos = Trans.Pos;
             TransUni.Rot = Trans.Rot;
 
-            if (mouse_ray == null) { mouse_ray = new Point3D(); }
+            if (!mouse_ray.Is()) { mouse_ray = Point3D.Default(); }
             Ray = new Ray3D(Trans.Pos, mouse_ray - Trans.Rot);
         }
     }

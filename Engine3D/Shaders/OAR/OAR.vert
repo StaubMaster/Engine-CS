@@ -1,6 +1,6 @@
 ﻿#version 430
 
-uniform vec2[2] screenRatios;
+uniform vec2[2] screenRatios = { vec2(640, 480), vec2(0.75, 1.00) };
 
 uniform vec3[3] view = { vec3(0, 0, 0), vec3(0, 0, 0), vec3(1, 1, 1) };
 
