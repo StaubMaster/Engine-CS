@@ -88,12 +88,12 @@ void EmitPallet(pallet_point[8] pp_arr, uint skips)
 	vec2[8] points0;
 	vec2[8] points1;
 
-	vec2 normPos = gs_in[0].Position;
-	normPos = normPos + (gs_in[0].Offset * (gs_in[0].Height * SizeRatio + gs_in[0].Padding));
+	vec2 normPos;
+	normPos = gs_in[0].Position + (gs_in[0].Offset * (gs_in[0].Height * SizeRatio + gs_in[0].Padding));
 	normPos = normPos / screenRatios[0];
-	normPos = (normPos * 2) - 1;
+	normPos = normPos * 2;
 	//normPos = normPos + (gs_in[0].Anchor * 2) - 1;
-	normPos = normPos + (gs_in[0].Anchor + 1);
+	normPos = normPos + gs_in[0].Anchor;
 
 	vec2 normSize = vec2(gs_in[0].Height);
 	normSize = normSize / screenRatios[0];

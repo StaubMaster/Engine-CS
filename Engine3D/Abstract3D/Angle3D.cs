@@ -5,10 +5,8 @@ namespace Engine3D.Abstract3D
     /* redesign
      * 
      */
-    public struct Angle3D : Graphics.Basic.Data.IData
+    public struct Angle3D : DataStructs.IData
     {
-        public const int Size = sizeof(float) * 3 * 3;
-
         private float sinA;
         private float sinS;
         private float sinD;
@@ -314,6 +312,7 @@ namespace Engine3D.Abstract3D
             });
         }
 
+        public const int SizeOf = sizeof(float) * 3 * 3;
         public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
         {
             OpenTK.Graphics.OpenGL.GL.EnableVertexAttribArray(bindIndex[0]);

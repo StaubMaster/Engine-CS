@@ -11,7 +11,6 @@ namespace Engine3D.Graphics
 {
     public class TextBuffer : BaseBuffer
     {
-        public DisplayPointConverter DisplayConverter = new DisplayPointConverter(2000, 1000);
         public TextSize Default_TextSize;
 
         private TextCharacterPalletIndex[] CharacterIndexMap;
@@ -28,7 +27,6 @@ namespace Engine3D.Graphics
 
             StringDataList = new List<StringData>();
 
-            DisplayConverter = new DisplayPointConverter(640, 480);
             Default_TextSize = new TextSize(16f, 1.0f, 4f);
         }
         ~TextBuffer()

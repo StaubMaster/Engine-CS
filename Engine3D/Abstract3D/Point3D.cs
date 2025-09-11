@@ -2,10 +2,8 @@
 
 namespace Engine3D.Abstract3D
 {
-    public struct Point3D : Graphics.Basic.Data.IData
+    public struct Point3D : DataStructs.IData
     {
-        public const int Size = sizeof(float) * 3;
-
         public float Y;
         public float X;
         public float C;
@@ -177,12 +175,13 @@ namespace Engine3D.Abstract3D
             OpenTK.Graphics.OpenGL.GL.Uniform3(locations[0], Y, X, C);
         }
 
+        public const int SizeOf = sizeof(float) * 3;
         public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
         {
             OpenTK.Graphics.OpenGL.GL.EnableVertexAttribArray(bindIndex[0]);
             OpenTK.Graphics.OpenGL.GL.VertexAttribPointer(bindIndex[0], 3, OpenTK.Graphics.OpenGL.VertexAttribPointerType.Float, false, stride, offset);
             OpenTK.Graphics.OpenGL.GL.VertexAttribDivisor(bindIndex[0], divisor);
-            offset += Size;
+            offset += SizeOf;
         }
     }
 }

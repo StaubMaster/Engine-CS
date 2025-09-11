@@ -31,7 +31,7 @@ out vec4 Color;
 
 
 
-void main()
+float CalcDepthFactor()
 {
 	float depth_factor;
 
@@ -47,8 +47,11 @@ void main()
 	depth_factor = (depth_factor - depthFadeRange[0]) / depthFadeRange[1];
 	depth_factor = min(max(depth_factor, 0), 1);
 
+	return depth_factor;
+}
 
-
+float CalcLightFactor()
+{
 	float solar_factor;
 	solar_factor = dot(solar, normalize(fs_in.Normal));
 
@@ -56,7 +59,35 @@ void main()
 	//light_factor = abs(light_factor);	//	lights from both sides
 	light_factor = min(max(light_factor, lightRange[0]), lightRange[2]);
 
+	return light_factor;
+}
 
+void main()
+{
+	float depth_factor = CalcDepthFactor();
+	float light_factor = CalcLightFactor();
+
+	/*	Factoring Order
+			Alternative Color Local
+			Alternative Color Global
+			Gray Local
+			Gray Global
+			Light Range Local
+			Light Range Global
+	*/
+ 
+ /*
+	why should Alternative Color and such be Global
+		if I want to give certain things a certain color
+		but then give everything a red tint or something
+			use post-Processing
+	Gray Local and Global is also stupid
+	Light
+		for fullbright, give each its own ?
+	so just change all Data to Local ?
+
+	
+ */
 
 	//	other color
 	vec3 col = fs_in.Color;

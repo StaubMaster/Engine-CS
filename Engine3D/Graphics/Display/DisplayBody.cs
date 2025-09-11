@@ -21,14 +21,14 @@ namespace Engine3D.Graphics.Display
     public class DisplayPolyHedra
     {
         public readonly PolyHedra PHedra;
-        private readonly PHEIBuffer Buffer;
+        private readonly PHEI_Buffer Buffer;
         private readonly string Path;
 
         public DisplayPolyHedra(string path)
         {
             Path = path;
             PHedra = TBodyFile.LoadTextFile(path);
-            Buffer = new PHEIBuffer();
+            Buffer = new PHEI_Buffer();
             PHedra.ToBuffer(Buffer);
         }
 

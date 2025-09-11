@@ -1,34 +1,36 @@
 ﻿
-this sucks
-I look at how other people do this
-and their code is allways organized
-and makes sense
-mine is mostly thrown together
-a lot of this stuff is just rewriting stuff that already exists
-i dont use matrixes because I think that what I do is better
+Remove old Stuff
 
 
 
-now that thats dont
-how to I ogranize this stuff
+DataStructs
+DataStructs.Stuff3D
+DataStructs.Stuff2D
+DataStructs.Miscellaneous
+DataStructs.Miscellaneous.RangeData.cs
+DataStructs.Miscellaneous.ColorData.cs
+DataStructs.Miscellaneous. ...
 
-I had the Idea of putting PolyHedra Shaders/Buffers inside PolyHedra
-but there might be a lot so thats probably a bad Idea ?
+Graphics
+Graphics.BaseShader.cs (implement stuff from GenericShader.cs)
+Graphics.BaseBuffer.cs
+Graphics.ShaderCode.cs
+Graphics.BaseUniform.cs (implement stuff from GenericUniform.cs)
+Graphics.DataUniform.cs (GUniData.cs)
+Graphics.Manager
+Graphics.Manager.GraphicsManager.cs (GenericManager ?)
+Graphics.Display2D
+Graphics.Display3D
+Graphics.Telematry (extra class or just include directly in each thing ?)
+Graphics.Display.cs (the Window)
 
-have a NameSpace in Graphics for PolyHedra ?
-NameSpace for each Category
 
 
 
-PolyHedra:
-	Buffer:
-		Basic
-		Instance
-			is the same as Basic but with Instance Buffer
-	Shader:
-		Uniform Trans
-		Instance Trans
-		Icons
+
+
+
+make everything with Instances
 
 Text:
 	Text

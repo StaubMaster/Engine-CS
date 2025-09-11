@@ -6,8 +6,8 @@ namespace Engine3D.Graphics
     {
         public const int Size_Color = 0;
         public const int Size_Min = Size_Color + sizeof(uint);
-        public const int Size_Max = Size_Min + Point3D.Size;
-        public const int Size = Size_Max + Point3D.Size;
+        public const int Size_Max = Size_Min + Point3D.SizeOf;
+        public const int Size = Size_Max + Point3D.SizeOf;
 
 
 

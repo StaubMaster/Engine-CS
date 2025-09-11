@@ -3,7 +3,6 @@ namespace Engine3D.Miscellaneous
 {
     public static class UnitToString
     {
-
         private static readonly string[] MetricFix = new string[] { "", "k", "M", "G", "T", "P" };
         private static readonly string[] BinaryFix = new string[] { "", "Ki", "Mi", "Gi", "Ti", "Pi" };
 
@@ -19,14 +18,30 @@ namespace Engine3D.Miscellaneous
                 if (size < 1000) { break; }
                 size /= 1000;
             }
-            return size + " " + MetricFix[i] + "B";
+            return size + "" + MetricFix[i] + "B";
         }
         public static string Memory1000Raw(int size)
         {
             return Memory1000(size) + " " + "(" + MemoryRaw(size) + ")";
         }
-
-
+        public static string Memory1024(int size)
+        {
+            int i;
+            for (i = 0; i < BinaryFix.Length - 1; i++)
+            {
+                if (size < 1024) { break; }
+                size /= 1024;
+            }
+            return size + " " + BinaryFix[i] + "B";
+        }
+        public static string Memory1024Raw(int size)
+        {
+            return Memory1024(size) + " " + "(" + MemoryRaw(size) + ")";
+        }
+        public static string Memory_1000_1024_Raw(int size)
+        {
+            return Memory1000(size) + " " + Memory1024(size) + " " + "(" + MemoryRaw(size) + ")";
+        }
 
         private struct UnitFloat
         {

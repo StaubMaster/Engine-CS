@@ -2,7 +2,7 @@
 
 namespace Engine3D.Abstract2D
 {
-    public struct Point2D
+    public struct Point2D : DataStructs.IData
     {
         public float X;
         public float Y;
@@ -10,6 +10,11 @@ namespace Engine3D.Abstract2D
         {
             X = x;
             Y = y;
+        }
+
+        public static implicit operator Point2D((float, float) values)
+        {
+            return new Point2D(values.Item1, values.Item2);
         }
 
         public static Point2D operator +(Point2D p)
@@ -140,6 +145,22 @@ namespace Engine3D.Abstract2D
                 );
         }
 
-        public const int Size = sizeof(float) * 2;
+
+
+
+
+        public void ToUniform(params int[] locations)
+        {
+            OpenTK.Graphics.OpenGL.GL.Uniform2(locations[0], X, Y);
+        }
+
+        public const int SizeOf = sizeof(float) * 2;
+        public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
+        {
+            OpenTK.Graphics.OpenGL4.GL.EnableVertexAttribArray(bindIndex[0]);
+            OpenTK.Graphics.OpenGL4.GL.VertexAttribPointer(bindIndex[0], 2, OpenTK.Graphics.OpenGL4.VertexAttribPointerType.Float, false, stride, offset);
+            OpenTK.Graphics.OpenGL4.GL.VertexAttribDivisor(bindIndex[0], divisor);
+            offset += SizeOf;
+        }
     }
 }

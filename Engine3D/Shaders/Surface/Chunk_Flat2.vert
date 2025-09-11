@@ -77,9 +77,10 @@ void main()
 	vs_out.Color.b = ((VCol >> 0) & 0xFF) / 255.0;
 
 
+	int tileID = gl_VertexID % (tiles_per_side * tiles_per_side);
 	ivec3 p;
-	p.x = gl_VertexID % tiles_per_side;
-	p.z = gl_VertexID / tiles_per_side;
+	p.x = tileID % tiles_per_side;
+	p.z = tileID / tiles_per_side;
 
 	p.x += chunk_pos.x * tiles_per_side;
 	p.z += chunk_pos.z * tiles_per_side;

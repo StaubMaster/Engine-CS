@@ -28,6 +28,8 @@
   <ItemGroup>
     <Compile Remove="Deprecated\CBodyOld.cs" />
     <Compile Remove="GraphicsOld\Forms\Movement.cs" />
+    <Compile Remove="Graphics\Display\DisplayPoint.cs" />
+    <Compile Remove="Graphics\Display\DisplayScale.cs" />
     <Compile Remove="OutPut\Shader\SShaderFileTemplate.cs" />
     <Compile Remove="OutPut\Shader\SShaderProgramTemplate.cs" />
   </ItemGroup>

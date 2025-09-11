@@ -37,7 +37,7 @@ namespace Engine3D.Graphics
             Off1 = new Point2D(0, 0);
         }
 
-        public const int Size = Point2D.Size * 7;
+        public const int Size = Point2D.SizeOf * 7;
     }
     public static class TextPalletTest
     {

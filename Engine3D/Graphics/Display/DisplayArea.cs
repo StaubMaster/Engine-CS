@@ -8,9 +8,14 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.Display
 {
-    public class DisplayArea
+    public class DisplayArea : GameWindow
     {
-        private GameWindow GameWin;
+        private Vector2 Center;
+
+        private Vector2 MouseLast;
+        private Vector2 MouseDelta;
+        private bool MouseLockChanging;
+
         private Color4 DefaultColor;
 
         private bool IsRunning;
@@ -19,13 +24,27 @@ namespace Engine3D.Graphics.Display
         private readonly Action FuncFrame;
         private readonly Action FuncClosing;
 
-        private Vector2 Center;
-        public bool MouseLocked;
-
         public readonly OutPut.Uniform.Specific.CUniformScreenRatio ScreenRatio;
 
-        public DisplayArea(int w, int h, Action func_closing, Action func_frame)
+        private static GameWindowSettings DefaultGameSettings()
         {
+            GameWindowSettings gws = GameWindowSettings.Default;
+            return gws;
+        }
+        private static NativeWindowSettings DefaultNativeSettings(int w, int h)
+        {
+            NativeWindowSettings nws = NativeWindowSettings.Default;
+            nws.APIVersion = Version.Parse("4.1");
+            nws.ClientSize = new Vector2i(w, h);
+            return nws;
+        }
+
+        public DisplayArea(int w, int h, Action func_closing, Action func_frame)
+            : base(DefaultGameSettings(), DefaultNativeSettings(w, h))
+        {
+            UpdateFrequency = 64;
+            Center = new Vector2(ClientSize.X / 2, ClientSize.Y / 2);
+
             IsRunning = false;
             IsClosing = false;
 
@@ -43,9 +62,9 @@ namespace Engine3D.Graphics.Display
                 nws.ClientSize = new Vector2i(w, h);
                 //nws.Location = new Vector2i(2560 - (10 + w), 10);
 
-                GameWin = new GameWindow(gws, nws);
-                GameWin.RenderFrame += Frame;
-                GameWin.Resize += Resize;
+                //GameWin = new GameWindow(gws, nws);
+                //this.RenderFrame += Frame;
+                //this.Resize += Resize;
 
                 GL.Enable(EnableCap.DepthTest);
                 GL.Enable(EnableCap.CullFace);
@@ -53,36 +72,41 @@ namespace Engine3D.Graphics.Display
                 GL.FrontFace(FrontFaceDirection.Cw);
             }
 
-            ScreenRatio = new OutPut.Uniform.Specific.CUniformScreenRatio(GameWin.ClientSize.X, GameWin.ClientSize.Y);
+            ScreenRatio = new OutPut.Uniform.Specific.CUniformScreenRatio(this.ClientSize.X, this.ClientSize.Y);
 
-            Center = GameWin.ClientSize / 2;
-            MouseLocked = false;
+            MouseDelta = new Vector2();
+            MouseLockChanging = false;
         }
 
-        private void Closing(System.ComponentModel.CancelEventArgs args)
+        /*private void Closing(System.ComponentModel.CancelEventArgs args)
         {
             FuncClosing();
-        }
-        private void Resize(ResizeEventArgs args)
+        }*/
+        protected override void OnResize(ResizeEventArgs e)
         {
-            Center = GameWin.ClientSize / 2;
-            GL.Viewport(0, 0, GameWin.ClientSize.X, GameWin.ClientSize.Y);
-            ScreenRatio.Calc(GameWin.ClientSize.X, GameWin.ClientSize.Y);
+            base.OnResize(e);
+            Center = new Vector2(ClientSize.X / 2, ClientSize.Y / 2);
+            GL.Viewport(0, 0, this.ClientSize.X, this.ClientSize.Y);
+            ScreenRatio.Calc(this.ClientSize.X, this.ClientSize.Y);
         }
-        private void Frame(FrameEventArgs args)
+
+
+
+        protected override void OnRenderFrame(FrameEventArgs args)
         {
             if (!IsRunning || IsClosing) { return; }
 
-            if (GameWin.IsKeyPressed(Keys.Tab)) { MouseLocked = !MouseLocked; }
+            base.OnRenderFrame(args);
+
+            MouseUpdate();
 
             GL.Clear(ClearBufferMask.DepthBufferBit);
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.ClearColor(DefaultColor);
 
-            if (MouseLocked) { GameWin.MousePosition = Center; }
             if (FuncFrame != null) { FuncFrame(); }
 
-            GameWin.SwapBuffers();
+            this.SwapBuffers();
         }
 
         public void ChangeColor(byte r, byte g, byte b)
@@ -96,12 +120,12 @@ namespace Engine3D.Graphics.Display
 
 
 
-        public void Run()
+        public override void Run()
         {
             if (IsRunning) { return; }
             IsRunning = true;
 
-            GameWin.Run();
+            base.Run();
         }
         public void Term()
         {
@@ -110,11 +134,10 @@ namespace Engine3D.Graphics.Display
             if (!IsClosing)
             {
                 IsClosing = true;
-                GameWin.Close();
+                Close();
             }
 
-            GameWin.Dispose();
-            GameWin = null;
+            Dispose();
 
             IsRunning = false;
         }
@@ -124,45 +147,73 @@ namespace Engine3D.Graphics.Display
         public (float, float) Size_Float2()
         {
             return (
-                GameWin.ClientSize.X,
-                GameWin.ClientSize.Y
+                this.ClientSize.X,
+                this.ClientSize.Y
             );
         }
+
+
 
         public (float, float) MousePixel()
         {
             return (
-                GameWin.MousePosition.X,
-                GameWin.ClientSize.Y - GameWin.MousePosition.Y
+                this.MousePosition.X,
+                this.ClientSize.Y - this.MousePosition.Y
                 );
         }
-        public Vector2 MouseCenterDiff_Vector2()
-        {
-            Vector2 diff = new Vector2();
 
-            diff.X = GameWin.MousePosition.X - Center.X;
-            diff.Y = Center.Y - GameWin.MousePosition.Y;
-
-            return diff;
-        }
-        public (float, float) MouseCenterDiff_Float2()
+        public bool MouseLocked { get { return (this.CursorState != CursorState.Normal); } }
+        public void MouseLock()
         {
-            return (
-                GameWin.MousePosition.X - Center.X,
-                Center.Y - GameWin.MousePosition.Y
-            );
+            this.CursorState = CursorState.Grabbed;
+            MouseLockChanging = true;
         }
+        public void MouseUnlock()
+        {
+            this.CursorState = CursorState.Normal;
+            MouseLockChanging = true;
+        }
+        private void MouseUpdate()
+        {
+            if (IsKeyPressed(Keys.Tab))
+            {
+                if (!MouseLocked)
+                {
+                    MouseLock();
+                }
+                else
+                {
+                    MouseUnlock();
+                }
+            }
+
+            if (!MouseLockChanging)
+            {
+                MouseDelta.X = this.MousePosition.X - MouseLast.X;
+                MouseDelta.Y = MouseLast.Y - this.MousePosition.Y;
+                MouseLast = this.MousePosition;
+            }
+            MouseLockChanging = false;
+        }
+
         public Abstract3D.Point3D MouseRay()
         {
-            (float, float) mouseWin = MouseCenterDiff_Float2();
+            if (MouseLocked)
+            {
+                return new Abstract3D.Point3D(0, 0, 1);
+            }
+
+            float mouseCenterX = this.MousePosition.X - Center.X;
+            float mouseCenterY = Center.Y - this.MousePosition.Y;
+
             return new Abstract3D.Point3D(
-                mouseWin.Item1 / (ScreenRatio.Data[0] * ScreenRatio.Data[2] * 0.5f),
-                mouseWin.Item2 / (ScreenRatio.Data[1] * ScreenRatio.Data[3] * 0.5f),
+                mouseCenterX / (ScreenRatio.Data[0] * ScreenRatio.Data[2] * 0.5f),
+                mouseCenterY / (ScreenRatio.Data[1] * ScreenRatio.Data[3] * 0.5f),
                 1);
         }
         public float MouseScroll()
         {
-            return GameWin.MouseState.ScrollDelta.Y;
+            return this.MouseState.ScrollDelta.Y;
         }
 
 
@@ -170,13 +221,13 @@ namespace Engine3D.Graphics.Display
         public Abstract3D.Point3D MoveByKeys(double speed = 1.0, double fast = 100.0)
         {
             Abstract3D.Point3D pos = Abstract3D.Point3D.Default();
-            if (GameWin.IsKeyDown(Keys.D)) { pos.C -= (float)speed; }
-            if (GameWin.IsKeyDown(Keys.E)) { pos.C += (float)speed; }
-            if (GameWin.IsKeyDown(Keys.S)) { pos.Y -= (float)speed; }
-            if (GameWin.IsKeyDown(Keys.F)) { pos.Y += (float)speed; }
-            if (GameWin.IsKeyDown(Keys.LeftShift)) { pos.X -= (float)speed; }
-            if (GameWin.IsKeyDown(Keys.Space))     { pos.X += (float)speed; }
-            if (GameWin.IsKeyDown(Keys.LeftControl)) { pos *= fast; }
+            if (this.IsKeyDown(Keys.D)) { pos.C -= (float)speed; }
+            if (this.IsKeyDown(Keys.E)) { pos.C += (float)speed; }
+            if (this.IsKeyDown(Keys.S)) { pos.Y -= (float)speed; }
+            if (this.IsKeyDown(Keys.F)) { pos.Y += (float)speed; }
+            if (this.IsKeyDown(Keys.LeftShift)) { pos.X -= (float)speed; }
+            if (this.IsKeyDown(Keys.Space))     { pos.X += (float)speed; }
+            if (this.IsKeyDown(Keys.LeftControl)) { pos *= fast; }
             return pos;
         }
         public Abstract3D.Angle3D SpinByMouse(double factor = 0.005)
@@ -184,9 +235,8 @@ namespace Engine3D.Graphics.Display
             Abstract3D.Angle3D rot = Abstract3D.Angle3D.Default();
             if (MouseLocked)
             {
-                Vector2 diff = MouseCenterDiff_Vector2();
-                rot.A = diff.X * factor;
-                rot.S = diff.Y * factor;
+                rot.A = MouseDelta.X * factor;
+                rot.S = MouseDelta.Y * factor;
             }
             return rot;
         }
@@ -235,11 +285,11 @@ namespace Engine3D.Graphics.Display
 
         public KeyState CheckKey(Keys key)
         {
-            return new KeyStateBoard(GameWin, key);
+            return new KeyStateBoard(this, key);
         }
         public KeyState CheckKey(MouseButton button)
         {
-            return new KeyStateMouse(GameWin, button);
+            return new KeyStateMouse(this, button);
         }
     }
 }

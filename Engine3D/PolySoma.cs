@@ -11,6 +11,8 @@ using Engine3D.TextParser;
 using Engine3D.TextParser.Sectonizer;
 using Engine3D.TextParser.Checker;
 using Engine3D.Miscellaneous.StringHelp;
+using Engine3D.Miscellaneous.EntryContainer;
+using Engine3D.Graphics.Display3D;
 
 namespace Engine3D.Abstract3D
 {
@@ -43,7 +45,10 @@ namespace Engine3D.Abstract3D
 
 
         public ArrayList<DisplayPolyHedra> AllPolyHedras;
-        public ArrayList<DisplayBody> AllBodys;
+        public ArrayList<DisplayBody> AllBodysOld;
+
+        private List<PolyHedraInstance_3D_BufferData> AllBodys;
+        private List<EntryContainerDynamic<PolyHedraInstance_3D_Data>.Entry> AllTrans;
 
         private string DirPath;
 
@@ -52,7 +57,10 @@ namespace Engine3D.Abstract3D
         public PolySoma()
         {
             AllPolyHedras = new ArrayList<DisplayPolyHedra>();
-            AllBodys = new ArrayList<DisplayBody>();
+            AllBodysOld = new ArrayList<DisplayBody>();
+
+            AllBodys = new List<PolyHedraInstance_3D_BufferData>();
+            AllTrans = new List<EntryContainerBase<PolyHedraInstance_3D_Data>.Entry>();
 
             DirPath = "";
 
@@ -63,24 +71,27 @@ namespace Engine3D.Abstract3D
         {
             if (IsEdit) { return; }
             AllPolyHedras.EditBegin();
-            AllBodys.EditBegin();
+            AllBodysOld.EditBegin();
             IsEdit = true;
         }
         public void Edit_Stop()
         {
             if (!IsEdit) { return; }
             AllPolyHedras.EditEnd();
-            AllBodys.EditEnd();
+            AllBodysOld.EditEnd();
             IsEdit = false;
         }
 
         public void Edit_Insert_Body(Transformation3D trans)
         {
-            AllBodys.Insert(new DisplayBody(AllPolyHedras[AllPolyHedras.Count - 1], trans));
+            AllBodysOld.Insert(new DisplayBody(AllPolyHedras[AllPolyHedras.Count - 1], trans));
+            AllTrans.Add(AllBodys[AllBodys.Count - 1].Alloc(1));
         }
         public void Edit_Remove_Body(int idx)
         {
-            AllBodys.Remove(idx);
+            AllBodysOld.Remove(idx);
+            AllTrans[idx].Free();
+            AllTrans.RemoveAt(idx);
         }
 
         public void Edit_Change_Dir(string dir)
@@ -90,39 +101,61 @@ namespace Engine3D.Abstract3D
         public void Edit_Insert_PolyRel(string path)
         {
             AllPolyHedras.Insert(new DisplayPolyHedra(DirPath + path));
+            AllBodys.Add(new PolyHedraInstance_3D_BufferData(DirPath + path));
         }
         public void Edit_Insert_PolyAbs(string path)
         {
             AllPolyHedras.Insert(new DisplayPolyHedra(path));
+            AllBodys.Add(new PolyHedraInstance_3D_BufferData(path));
         }
 
 
 
-        public void Draw(BodyElemUniShader shader)
+        public void Update()
         {
             for (int i = 0; i < AllBodys.Count; i++)
             {
-                AllBodys[i].Draw(shader);
+                AllBodys[i].DataUpdate();
             }
         }
-        public void Draw(BodyElemUniWireShader shader)
+        public void DrawInst()
         {
             for (int i = 0; i < AllBodys.Count; i++)
             {
-                AllBodys[i].Draw(shader);
+                AllBodys[i].DrawInst();
             }
         }
 
 
 
+        public Intersekt.RayInterval Intersekt(Ray3D ray, out int idx)
+        {
+            Intersekt.RayInterval intersekt = new Intersekt.RayInterval(ray);
+            idx = -1;
+
+            for (int i = 0; i < AllBodysOld.Count; i++)
+            {
+                Intersekt.RayInterval inter = AllBodysOld[i].Intersekt(ray);
+                if (inter.Is)
+                {
+                    if (inter.Interval < intersekt.Interval)
+                    {
+                        intersekt = inter;
+                        idx = i;
+                    }
+                }
+            }
+
+            return intersekt;
+        }
         private string AllPlaced(DisplayPolyHedra poly)
         {
             string str = "";
-            for (int i = 0; i < AllBodys.Count; i++)
+            for (int i = 0; i < AllBodysOld.Count; i++)
             {
-                if (AllBodys[i].Body == poly)
+                if (AllBodysOld[i].Body == poly)
                 {
-                    str += AllBodys[i].ToYMT();
+                    str += AllBodysOld[i].ToYMT();
                 }
             }
             return str;
@@ -132,12 +165,12 @@ namespace Engine3D.Abstract3D
             string str = "";
             str += "Format PolySoma;\r\n";
             str += "Parse Manual;\r\n";
-            for (int i = 0; i < AllPolyHedras.Count; i++)
+            /*for (int i = 0; i < AllPolyHedras.Count; i++)
             {
                 str += "\r\n";
                 str += AllPolyHedras[i].ToYMT();
                 str += AllPlaced(AllPolyHedras[i]);
-            }
+            }*/
             return str;
         }
 
@@ -255,7 +288,7 @@ namespace Engine3D.Abstract3D
                 FormatDynamic = new HierarchyDynamic();
                 Hierarchy hierarchy = new HierarchyLoop(new HierarchyNewLayer(new HierarchyMultiChoice(new Hierarchy[]
                 {
-                    new HierarchyCommand(new HierarchyFixed(new Hierarchy[]
+                    /*new HierarchyCommand(new HierarchyFixed(new Hierarchy[]
                     {
                         new HierarchyHeader("var"),
                         new HierarchyVariable(),
@@ -264,7 +297,7 @@ namespace Engine3D.Abstract3D
                             VariableManager.NumberMath,
                             VariableManager.PointMath,
                         }),
-                    }), VarMan.Change),
+                    }), VarMan.Change),*/
 
                     new HierarchyCommand(new HierarchyFixed(new Hierarchy[]
                     {
@@ -296,6 +329,7 @@ namespace Engine3D.Abstract3D
                 else
                 {
                     ConsoleLog.LogFailure("Main Check");
+                    layer.SectionMain.ToConsole(false, false, "");
                 }
                 return MainTemplate;
             }

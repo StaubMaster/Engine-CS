@@ -2,10 +2,8 @@
 
 namespace Engine3D.Abstract3D
 {
-    public struct Transformation3D : Graphics.Basic.Data.IData
+    public struct Transformation3D : DataStructs.IData
     {
-        public const int Size = Point3D.Size + Angle3D.Size;
-
         public Point3D Pos;   //  position
         public Angle3D Rot;   //  rotation
 
@@ -101,6 +99,7 @@ namespace Engine3D.Abstract3D
             OpenTK.Graphics.OpenGL.GL.Uniform3(locations[0], 3, data);
         }
 
+        public const int SizeOf = Point3D.SizeOf + Angle3D.SizeOf;
         public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
         {
             Point3D.ToBuffer(stride, ref offset, divisor, bindIndex[0]);

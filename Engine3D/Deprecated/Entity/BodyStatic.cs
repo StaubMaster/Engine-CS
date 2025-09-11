@@ -5,7 +5,7 @@ using System.IO;
 using Engine3D.Abstract3D;
 using Engine3D.GraphicsOld;
 using Engine3D.Graphics;
-using Engine3D.Graphics.Basic.Data;
+using Engine3D.DataStructs;
 
 namespace Engine3D.Entity
 {
@@ -165,7 +165,7 @@ namespace Engine3D.Entity
             Buffer.Draw();
         }
 
-        public void ToBuffer(Graphics.Display3D.PHEIBuffer buffer)
+        public void ToBuffer(Graphics.Display3D.PHE_Buffer buffer)
         {
             buffer.Bind_Main_Corners(Ecken);
 

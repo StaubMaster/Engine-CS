@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Engine3D.Graphics;
-using Engine3D.Graphics.Basic.Data;
+using Engine3D.DataStructs;
 using Engine3D.Miscellaneous;
 
 namespace Engine3D.Abstract3D
@@ -230,7 +230,13 @@ namespace Engine3D.Abstract3D
             ToBuffer(buffer);
             return buffer;
         }
-        public void ToBuffer(Graphics.Display3D.PHEIBuffer buffer)
+        public void ToBuffer(Graphics.Display3D.PHE_Buffer buffer)
+        {
+            buffer.Bind_Main_Corners(Corners.ToArray());
+            buffer.Bind_Main_Indexes(Faces.ToArray());
+            buffer.Bind_Main_Colors(Colors.ToArray());
+        }
+        public void ToBuffer(Graphics.PolyHedraBase.PolyHedraBaseBuffer buffer)
         {
             buffer.Bind_Main_Corners(Corners.ToArray());
             buffer.Bind_Main_Indexes(Faces.ToArray());
