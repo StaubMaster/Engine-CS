@@ -40,19 +40,19 @@ namespace Engine3D.Miscellaneous.EntryContainer
             {
                 return (Container != null);
             }
-            public void Dispose()
+            public void UnReference()
             {
                 Container = null;
                 EntryIndex = -1;
             }
 
-            public void Free(bool debug = false)
+            public void Dispose(bool debug = false)
             {
                 if (debug) { ConsoleLog.Log("Entry.IsValid(): " + IsValid()); }
                 if (IsValid())
                 {
                     Container.Free(EntryIndex, debug);
-                    Dispose();
+                    UnReference();
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace Engine3D.Miscellaneous.EntryContainer
             {
                 for (int i = 0; i < EntryRefs.Count; i++)
                 {
-                    EntryRefs[i].Dispose();
+                    EntryRefs[i].UnReference();
                 }
             }
         }

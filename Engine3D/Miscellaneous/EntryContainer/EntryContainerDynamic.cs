@@ -121,7 +121,7 @@ namespace Engine3D.Miscellaneous.EntryContainer
             ConsoleLog.Log("Data: " + entCont.Length);
             for (int i = 0; i < entCont.Length; i++) { ConsoleLog.Log("[" + i.ToString("00") + "] " + entCont.Data[i]); }
 
-            ent[1].Free();
+            ent[1].Dispose();
 
             ConsoleLog.Log("Data: " + entCont.Length);
             for (int i = 0; i < entCont.Length; i++) { ConsoleLog.Log("[" + i.ToString("00") + "] " + entCont.Data[i]); }
@@ -129,7 +129,7 @@ namespace Engine3D.Miscellaneous.EntryContainer
             ConsoleLog.Log("Indexe: " + entCont.Length);
             for (int i = 0; i < ent.Length; i++) { ConsoleLog.Log("[" + i.ToString("0") + "] " + ent[i].EntryIndex); }
 
-            ent[2].Free();
+            ent[2].Dispose();
 
             ConsoleLog.Log("Indexe: " + entCont.Length);
             for (int i = 0; i < ent.Length; i++) { ConsoleLog.Log("[" + i.ToString("0") + "] " + ent[i].EntryIndex); }

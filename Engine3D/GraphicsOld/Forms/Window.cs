@@ -178,7 +178,7 @@ namespace Engine3D.GraphicsOld.Forms
             if (CheckKey(Keys.LeftShift)) { pos.X -= (float)scale; }
             if (CheckKey(Keys.Space))     { pos.X += (float)scale; }
 
-            if (CheckKey(Keys.LeftControl)) { pos *= shift; }
+            if (CheckKey(Keys.LeftControl)) { pos *= (float)shift; }
 
             return pos;
         }

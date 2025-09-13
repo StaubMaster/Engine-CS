@@ -132,8 +132,8 @@ namespace Engine3D.Abstract3D
 
         public AxisBox3D CalcBox()
         {
-            Point3D Min = new Point3D(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
-            Point3D Max = new Point3D(double.NegativeInfinity, double.NegativeInfinity, double.NegativeInfinity);
+            Point3D Min = new Point3D(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
+            Point3D Max = new Point3D(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
 
             for (int i = 0; i < CornerCount(); i++)
             {

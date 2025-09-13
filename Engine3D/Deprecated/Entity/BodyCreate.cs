@@ -11,7 +11,7 @@ namespace Engine3D.Entity
     {
         public static class Create
         {
-            public static BodyStatic Cube(double scale)
+            public static BodyStatic Cube(float scale)
             {
                 ConsoleLog.Log("Cube:");
                 List<Point3D> Ecken = new List<Point3D>();
@@ -43,7 +43,7 @@ namespace Engine3D.Entity
 
                 return new BodyStatic(Ecken, Seiten);
             }
-            public static BodyStatic SphereQuad(uint ring, uint seg, double scale)
+            public static BodyStatic SphereQuad(uint ring, uint seg, float scale)
             {
                 ConsoleLog.Log("SphereQ: " + ring + " , " + seg);
                 List<Point3D> Ecken = new List<Point3D>();
@@ -115,7 +115,7 @@ namespace Engine3D.Entity
 
                 return new BodyStatic(Ecken, Seiten);
             }
-            public static BodyStatic SphereTri(uint ring, uint seg, double scale)
+            public static BodyStatic SphereTri(uint ring, uint seg, float scale)
             {
                 ConsoleLog.Log("SphereT: " + ring + " , " + seg);
                 List<Point3D> Ecken = new List<Point3D>();

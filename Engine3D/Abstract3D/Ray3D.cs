@@ -33,12 +33,12 @@ namespace Engine3D.Abstract3D
         {
             if (double.IsNaN(t))
                 return Point3D.Null();
-            return Pos + (Dir * t);
+            return Pos + (Dir * (float)t);
         }
 
         public void LineFunc2D(Func<int, int, double, bool> func, int limit)
         {
-            Dir = Dir * (1.0 / Math.Sqrt((Dir.Y * Dir.Y) + (Dir.C * Dir.C)));
+            Dir = Dir * (float)(1.0 / Math.Sqrt((Dir.Y * Dir.Y) + (Dir.C * Dir.C)));
 
             double unit_y, unit_c;
             unit_y = Dir.C / Dir.Y;
@@ -95,7 +95,7 @@ namespace Engine3D.Abstract3D
         }
         public void LineFunc2D<T>(Func<int, int, double, T, bool> func, int limit, T t)
         {
-            Dir = Dir * (1.0 / Math.Sqrt((Dir.Y * Dir.Y) + (Dir.C * Dir.C)));
+            Dir = Dir * (float)(1.0 / Math.Sqrt((Dir.Y * Dir.Y) + (Dir.C * Dir.C)));
 
             double unit_y, unit_c;
             unit_y = Dir.C / Dir.Y;

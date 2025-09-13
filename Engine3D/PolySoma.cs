@@ -90,7 +90,7 @@ namespace Engine3D.Abstract3D
         public void Edit_Remove_Body(int idx)
         {
             AllBodysOld.Remove(idx);
-            AllTrans[idx].Free();
+            AllTrans[idx].Dispose();
             AllTrans.RemoveAt(idx);
         }
 

@@ -94,29 +94,31 @@ namespace Engine3D.Graphics
     }
     public struct UIGrid
     {
-        public Point2D ScreenSize;  //  Screen Size Object ?
         public UIGridPosition Pos;
         public UIGridSize Size;
 
         public UIGrid(UIGridPosition pos, UIGridSize size)
         {
-            ScreenSize = new Point2D();
             Pos = pos;
             Size = size;
             Size.Size.X *= 0.5f;
         }
 
-        public Point2D ToNormal0(Point2D offset)
+
+
+        public static AxisBox2D PixelBoxNoPadding(UIGridPosition pos, UIGridSize size, Point2D pixelSize)
         {
-            Point2D p = offset * Size.ToStride();
+            Point2D sizeHalf = new Point2D(size.Size.X * 0.5f, size.Size.Y * 0.5f);
 
-            p.X = p.X / ScreenSize.X;
-            p.Y = p.Y / ScreenSize.Y;
+            Point2D center;
+            center.X = pos.Pixel.X + pos.Offset.X * (size.Size.X + size.Padding);
+            center.Y = pos.Pixel.Y + pos.Offset.Y * (size.Size.Y + size.Padding);
 
-            p.X = (p.X * 2) - 1;
-            p.Y = (p.Y * 2) - 1;
+            Point2D anchor;
+            anchor.X = ((pos.Normal.X + 1) / 2) * pixelSize.X;
+            anchor.Y = ((pos.Normal.Y + 1) / 2) * pixelSize.Y;
 
-            return new Point2D();
+            return AxisBox2D.MinMax((center + anchor) - sizeHalf, (center + anchor) + sizeHalf);
         }
     }
 

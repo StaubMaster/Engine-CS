@@ -176,9 +176,9 @@ namespace Engine3D
             public Point3D ToPunkt(int idx = 0)
             {
                 return new Point3D(
-                    double.Parse(Found[idx][0]),
-                    double.Parse(Found[idx][1]),
-                    double.Parse(Found[idx][2])
+                    float.Parse(Found[idx][0]),
+                    float.Parse(Found[idx][1]),
+                    float.Parse(Found[idx][2])
                     );
             }
             public Point3D[] ToPunktArr()

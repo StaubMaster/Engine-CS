@@ -27,7 +27,7 @@ namespace Engine3D.Noise
 
         public override double Sample(double y, double c)
         {
-            Point3D p = new Point3D(y, 0, c);
+            Point3D p = new Point3D((float)y, 0, (float)c);
             double h = (p - Point).Len * Scale + Shift;
 
             if (h < Min)
@@ -40,25 +40,25 @@ namespace Engine3D.Noise
         public static DistanceMinMax FromString(string[] str)
         {
             Point3D point = new Point3D(
-                double.Parse(str[0]),
-                double.Parse(str[1]),
-                double.Parse(str[2]));
+                float.Parse(str[0]),
+                float.Parse(str[1]),
+                float.Parse(str[2]));
             if (str.Length == 3)
                 return new DistanceMinMax(point);
 
-            double scale = double.Parse(str[3]);
+            float scale = float.Parse(str[3]);
             if (str.Length == 4)
                 return new DistanceMinMax(point, scale);
 
-            double shift = double.Parse(str[4]);
+            float shift = float.Parse(str[4]);
             if (str.Length == 5)
                 return new DistanceMinMax(point, scale, shift);
 
-            double min = double.Parse(str[5]);
+            float min = float.Parse(str[5]);
             if (str.Length == 6)
                 return new DistanceMinMax(point, scale, shift, min);
 
-            double max = double.Parse(str[6]);
+            float max = float.Parse(str[6]);
             if (str.Length == 7)
                 return new DistanceMinMax(point, scale, shift, min, max);
 

@@ -59,17 +59,17 @@ namespace Engine3D.Abstract3D
         }
         public static AxisBox3D Distance(Point3D[] arr)
         {
-            double dist, d;
-            dist = 0.0;
+            float dist, d;
+            dist = 0.0f;
 
             for (int i = 0; i < arr.Length; i++)
             {
-                d = arr[i].Len2;
+                d = (float)arr[i].Len2;
                 if (d > dist)
                     dist = d;
             }
 
-            dist = Math.Sqrt(dist);
+            dist = MathF.Sqrt(dist);
             return new AxisBox3D(
                 new Point3D(-dist, -dist, -dist),
                 new Point3D(+dist, +dist, +dist)
@@ -91,7 +91,7 @@ namespace Engine3D.Abstract3D
         }
         public Point3D Middle()
         {
-            return (Min + Max) * 0.5;
+            return (Min + Max) * 0.5f;
         }
 
         public bool InRangeY(double y)
@@ -125,9 +125,9 @@ namespace Engine3D.Abstract3D
             AxisBox3D box0 = new AxisBox3D(Min + pos, Max + pos);
 
             Point3D inv = new Point3D(
-                1.0 / ray.Dir.Y,
-                1.0 / ray.Dir.X,
-                1.0 / ray.Dir.C);
+                1.0f / ray.Dir.Y,
+                1.0f / ray.Dir.X,
+                1.0f / ray.Dir.C);
 
             AxisBox3D box1 = new AxisBox3D(
                 (box0.Min - ray.Pos) * inv,

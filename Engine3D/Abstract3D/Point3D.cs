@@ -14,7 +14,7 @@ namespace Engine3D.Abstract3D
         }
         public static Point3D Null()
         {
-            return new Point3D(double.NaN, double.NaN, double.NaN);
+            return new Point3D(float.NaN, float.NaN, float.NaN);
         }
         public bool Is()
         {
@@ -27,11 +27,11 @@ namespace Engine3D.Abstract3D
             X = 0;
             C = 0;
         }*/
-        public Point3D(double y, double x, double c)
+        public Point3D(float y, float x, float c)
         {
-            Y = (float)y;
-            X = (float)x;
-            C = (float)c;
+            Y = y;
+            X = x;
+            C = c;
         }
 
 
@@ -73,7 +73,7 @@ namespace Engine3D.Abstract3D
                 a.C * b.C);
         }
 
-        public static Point3D operator *(Point3D p, double d)
+        public static Point3D operator *(Point3D p, float d)
         {
             return new Point3D(
                 p.Y * d,
@@ -84,27 +84,27 @@ namespace Engine3D.Abstract3D
 
         public static Point3D operator !(Point3D p)
         {
-            return p * (1.0 / p.Len);
+            return p * (1.0f / p.Len);
         }
-        public double Len2
+        public float Len2
         {
             get
             {
                 return (Y * Y) + (X * X) + (C * C);
             }
         }
-        public double Len
+        public float Len
         {
             get
             {
-                return Math.Sqrt(Len2);
+                return MathF.Sqrt(Len2);
             }
         }
 
 
 
         //  Dot Product
-        public static double operator %(Point3D a, Point3D b)
+        public static float operator %(Point3D a, Point3D b)
         {
             return
                 a.Y * b.Y +
@@ -123,9 +123,9 @@ namespace Engine3D.Abstract3D
 
 
 
-        public static readonly Point3D Inf_P = new Point3D(double.PositiveInfinity, double.PositiveInfinity, double.PositiveInfinity);
-        public static readonly Point3D Inf_N = new Point3D(double.NegativeInfinity, double.NegativeInfinity, double.NegativeInfinity);
-        public static readonly Point3D NaN = new Point3D(double.NaN, double.NaN, double.NaN);
+        public static readonly Point3D Inf_P = new Point3D(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
+        public static readonly Point3D Inf_N = new Point3D(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
+        public static readonly Point3D NaN = new Point3D(float.NaN, float.NaN, float.NaN);
 
 
 

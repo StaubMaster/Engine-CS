@@ -6,6 +6,20 @@ namespace Engine3D.Abstract2D
     {
         public float X;
         public float Y;
+
+        public static Point2D Default()
+        {
+            return new Point2D(0, 0);
+        }
+        public static Point2D Null()
+        {
+            return new Point2D(float.NaN, float.NaN);
+        }
+        public bool Is()
+        {
+            return (!float.IsNaN(Y) && !float.IsNaN(X));
+        }
+
         public Point2D(float x, float y)
         {
             X = x;

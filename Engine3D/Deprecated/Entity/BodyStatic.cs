@@ -110,7 +110,7 @@ namespace Engine3D.Entity
         {
             for (int i = 0; i < Ecken.Length; i++)
             {
-                Ecken[i] *= d;
+                Ecken[i] *= (float)d;
             }
         }
 

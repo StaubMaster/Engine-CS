@@ -218,7 +218,7 @@ namespace Engine3D.Graphics.Display
 
 
 
-        public Abstract3D.Point3D MoveByKeys(double speed = 1.0, double fast = 100.0)
+        public Abstract3D.Point3D MoveByKeys(float speed = 1.0f, float fast = 100.0f)
         {
             Abstract3D.Point3D pos = Abstract3D.Point3D.Default();
             if (this.IsKeyDown(Keys.D)) { pos.C -= (float)speed; }
@@ -230,7 +230,7 @@ namespace Engine3D.Graphics.Display
             if (this.IsKeyDown(Keys.LeftControl)) { pos *= fast; }
             return pos;
         }
-        public Abstract3D.Angle3D SpinByMouse(double factor = 0.005)
+        public Abstract3D.Angle3D SpinByMouse(float factor = 0.005f)
         {
             Abstract3D.Angle3D rot = Abstract3D.Angle3D.Default();
             if (MouseLocked)
