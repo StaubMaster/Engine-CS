@@ -236,7 +236,7 @@ namespace Engine3D.Abstract3D
             buffer.Bind_Main_Indexes(Faces.ToArray());
             buffer.Bind_Main_Colors(Colors.ToArray());
         }
-        public void ToBuffer(Graphics.PolyHedraBase.PolyHedraBaseBuffer buffer)
+        public void ToBuffer(Graphics.PolyHedraBase.PolyHedra_Base_Buffer buffer)
         {
             buffer.Bind_Main_Corners(Corners.ToArray());
             buffer.Bind_Main_Indexes(Faces.ToArray());

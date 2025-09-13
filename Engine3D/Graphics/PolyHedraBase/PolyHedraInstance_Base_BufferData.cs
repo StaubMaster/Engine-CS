@@ -5,7 +5,8 @@ using Engine3D.Miscellaneous.EntryContainer;
 
 namespace Engine3D.Graphics.PolyHedraBase
 {
-    public abstract class PolyHedraInstance_Base_BufferData<BufferType, DataType> where BufferType : PolyHedraInstanceBaseBuffer<DataType>, new()
+    public abstract class PolyHedraInstance_Base_BufferData<BufferType, DataType>
+        where BufferType : PolyHedraInstance_Base_Buffer<DataType>, new()
     {
         protected readonly PolyHedra PH;
         protected readonly BufferType Buffer;

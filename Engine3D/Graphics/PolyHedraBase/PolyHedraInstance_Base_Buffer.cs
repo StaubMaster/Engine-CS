@@ -6,17 +6,17 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.PolyHedraBase
 {
-    public abstract class PolyHedraInstanceBaseBuffer<InstanceDataType> : PolyHedraBaseBuffer
+    public abstract class PolyHedraInstance_Base_Buffer<InstanceDataType> : PolyHedra_Base_Buffer
     {
         protected readonly int InstBuffer;
         protected int InstCount;
 
-        public PolyHedraInstanceBaseBuffer() : base()
+        public PolyHedraInstance_Base_Buffer() : base()
         {
             InstBuffer = GL.GenBuffer();
             InstCount = 0;
         }
-        ~PolyHedraInstanceBaseBuffer()
+        ~PolyHedraInstance_Base_Buffer()
         {
             Use();
 

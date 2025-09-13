@@ -2,26 +2,27 @@
 using Engine3D.Graphics.Display3D;
 using Engine3D.Miscellaneous.EntryContainer;
 using Engine3D.Graphics.PolyHedraBase;
+using Engine3D.Entity;
 
 using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.Display2D.UserInterface
 {
-    public struct UIBodyData
+    public struct UIBody_Data
     {
         public UIGridPosition Pos;
         public UIGridSize Size;
         public float Scale;
         public Transformation3D Trans;
 
-        public UIBodyData(UIGridPosition pos, UIGridSize size, float scale, Angle3D spin)
+        public UIBody_Data(UIGridPosition pos, UIGridSize size, float scale, Angle3D spin)
         {
             Pos = pos;
             Size = size;
             Scale = scale;
             Trans = new Transformation3D(spin);
         }
-        public UIBodyData(UIGridPosition pos, UIGridSize size, float scale, Transformation3D trans)
+        public UIBody_Data(UIGridPosition pos, UIGridSize size, float scale, Transformation3D trans)
         {
             Pos = pos;
             Size = size;
@@ -46,7 +47,7 @@ namespace Engine3D.Graphics.Display2D.UserInterface
         }
     }
 
-    public class UIBody_Buffer : PolyHedraInstanceBaseBuffer<UIBodyData>
+    public class UIBody_Buffer : PolyHedraInstance_Base_Buffer<UIBody_Data>
     {
         public UIBody_Buffer() : base()
         {
@@ -57,24 +58,47 @@ namespace Engine3D.Graphics.Display2D.UserInterface
 
         }
 
-        public override void Bind_Inst(UIBodyData[] data, int len)
+        public override void Bind_Inst(UIBody_Data[] data, int len)
         {
             Use();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, InstBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, len * UIBodyData.SizeOf, data, BufferUsageHint.StreamDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, len * UIBody_Data.SizeOf, data, BufferUsageHint.StreamDraw);
 
             System.IntPtr offset = System.IntPtr.Zero;
-            UIBodyData.ToBuffer(UIBodyData.SizeOf, ref offset, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            UIBody_Data.ToBuffer(UIBody_Data.SizeOf, ref offset, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
             InstCount = len;
         }
     }
-    public class UIBody : PolyHedraInstance_Base_BufferData<UIBody_Buffer, UIBodyData>
+    public class UIBody_BufferData : PolyHedraInstance_Base_BufferData<UIBody_Buffer, UIBody_Data>
     {
-        public UIBody(PolyHedra ph) : base(ph)
+        public UIBody_BufferData(PolyHedra ph) : base(ph)
         {
 
+        }
+    }
+    public class UIBody_Array : PolyHedraInstance_Base_Array<UIBody_BufferData, UIBody_Buffer, UIBody_Data>
+    {
+        public UIBody_Array(UIBody_BufferData[] array) : base(array)
+        {
+
+        }
+        public UIBody_Array(PolyHedra[] bodys) : base()
+        {
+            Array = new UIBody_BufferData[bodys.Length];
+            for (int i = 0; i < bodys.Length; i++)
+            {
+                Array[i] = new UIBody_BufferData(bodys[i]);
+            }
+        }
+        public UIBody_Array(BodyStatic[] bodys) : base()
+        {
+            Array = new UIBody_BufferData[bodys.Length];
+            for (int i = 0; i < bodys.Length; i++)
+            {
+                Array[i] = new UIBody_BufferData(bodys[i].ToPolyHedra());
+            }
         }
     }
 }

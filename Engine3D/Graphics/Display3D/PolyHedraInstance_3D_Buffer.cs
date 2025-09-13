@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.Display3D
 {
-    public class PolyHedraInstance_3D_Buffer : PolyHedraInstanceBaseBuffer<PolyHedraInstance_3D_Data>
+    public class PolyHedraInstance_3D_Buffer : PolyHedraInstance_Base_Buffer<PolyHedraInstance_3D_Data>
     {
         public override void Bind_Inst(PolyHedraInstance_3D_Data[] data, int len)
         {

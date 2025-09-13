@@ -6,21 +6,21 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.PolyHedraBase
 {
-    public abstract class PolyHedraBaseBuffer : BaseInstanceBuffer
+    public abstract class PolyHedra_Base_Buffer : Base_Buffer
     {
         protected readonly int CornersBuffer;
         protected readonly int IndexesBuffer;
         protected readonly int ColorsBuffer;
         protected int ElemCount;
 
-        public PolyHedraBaseBuffer() : base()
+        public PolyHedra_Base_Buffer() : base()
         {
             CornersBuffer = GL.GenBuffer();
             IndexesBuffer = GL.GenBuffer();
             ColorsBuffer = GL.GenBuffer();
             ElemCount = 0;
         }
-        ~PolyHedraBaseBuffer()
+        ~PolyHedra_Base_Buffer()
         {
             Use();
 

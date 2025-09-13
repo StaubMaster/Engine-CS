@@ -3,15 +3,15 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.Graphics.PolyHedraBase
 {
-    public abstract class BaseInstanceBuffer
+    public abstract class Base_Buffer
     {
         private readonly int BufferArray;
 
-        protected BaseInstanceBuffer()
+        protected Base_Buffer()
         {
             BufferArray = GL.GenVertexArray();
         }
-        ~BaseInstanceBuffer()
+        ~Base_Buffer()
         {
             GL.DeleteVertexArray(BufferArray);
         }
