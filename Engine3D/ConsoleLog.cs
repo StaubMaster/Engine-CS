@@ -166,6 +166,7 @@ namespace Engine3D
         private static (string, Color) HeaderFailure = (" [ FAILURE ] ", Color.FromArgb(255, 127, 127));
         private static (string, Color) HeaderChecking = (" [ CHECKING ] ", Color.FromArgb(127, 127, 255));
         private static (string, Color) HeaderProgress = (" [ PROGRESS ] ", Color.FromArgb(127, 127, 255));
+        private static (string, Color) HeaderDone =     (" [ DONE ] ", Color.FromArgb(127, 127, 255));
 
         private static void LogHeader((string, Color) header, string str)
         {
@@ -223,7 +224,10 @@ namespace Engine3D
         {
             LogHeader(HeaderProgress, str);
         }
-
+        public static void LogDone(string str)
+        {
+            LogHeader(HeaderDone, str);
+        }
 
 
         public static Action ColorNoneFunc;

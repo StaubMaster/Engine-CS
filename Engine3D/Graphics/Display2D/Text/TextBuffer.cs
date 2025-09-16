@@ -141,9 +141,9 @@ namespace Engine3D.Graphics
 
 
 
-        public void Insert(Point2D anchor, Point2D pos, UIGridDirection dir, (float, float) charOffset, uint color, TextSize size, string text)
+        public void Insert(Point2D anchor, Point2D pixel, UIGridDirection dir, (float, float) charOffset, uint color, TextSize size, string text)
         {
-            UIGridPosition orient = new UIGridPosition(anchor, pos, new Point2D(charOffset.Item1, charOffset.Item2));
+            UIGridPosition orient = new UIGridPosition(anchor, pixel, new Point2D(charOffset.Item1, charOffset.Item2));
 
             StringDataList.Add(new StringData(
                 orient,

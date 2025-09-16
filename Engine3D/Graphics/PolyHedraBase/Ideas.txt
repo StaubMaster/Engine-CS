@@ -1,0 +1,8 @@
+﻿
+Entry
+	right now the Entrys need to be respecified every time
+	make a Generic Wrapper for those
+
+Entry_Array
+	to match PHI_Base_Array
+

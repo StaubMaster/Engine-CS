@@ -92,6 +92,13 @@ namespace Engine3D.Graphics
             offset += sizeof(float);
         }
     }
+    public interface I_UIGrid
+    {
+        /* make Interface for these
+         *  for functions like calculating PixelPos and such
+         */
+        public int Test { get; }
+    }
     public struct UIGrid
     {
         public UIGridPosition Pos;
@@ -106,19 +113,29 @@ namespace Engine3D.Graphics
 
 
 
-        public static AxisBox2D PixelBoxNoPadding(UIGridPosition pos, UIGridSize size, Point2D pixelSize)
+        public static Point2D PixelRelPos(UIGridPosition pos, UIGridSize size)
         {
-            Point2D sizeHalf = new Point2D(size.Size.X * 0.5f, size.Size.Y * 0.5f);
-
-            Point2D center;
-            center.X = pos.Pixel.X + pos.Offset.X * (size.Size.X + size.Padding);
-            center.Y = pos.Pixel.Y + pos.Offset.Y * (size.Size.Y + size.Padding);
+            Point2D pixel;
+            pixel.X = pos.Pixel.X + pos.Offset.X * (size.Size.X + size.Padding);
+            pixel.Y = pos.Pixel.Y + pos.Offset.Y * (size.Size.Y + size.Padding);
+            return pixel;
+        }
+        public static Point2D PixelPos(UIGridPosition pos, UIGridSize size, Point2D pixelSize)
+        {
+            Point2D pixel = PixelRelPos(pos, size);
 
             Point2D anchor;
             anchor.X = ((pos.Normal.X + 1) / 2) * pixelSize.X;
             anchor.Y = ((pos.Normal.Y + 1) / 2) * pixelSize.Y;
 
-            return AxisBox2D.MinMax((center + anchor) - sizeHalf, (center + anchor) + sizeHalf);
+            return pixel + anchor;
+        }
+        public static AxisBox2D PixelBoxNoPadding(UIGridPosition pos, UIGridSize size, Point2D pixelSize)
+        {
+            Point2D center = PixelPos(pos, size, pixelSize);
+            Point2D sizeHalf = new Point2D(size.Size.X * 0.5f, size.Size.Y * 0.5f);
+
+            return AxisBox2D.MinMax(center - sizeHalf, center + sizeHalf);
         }
     }
 

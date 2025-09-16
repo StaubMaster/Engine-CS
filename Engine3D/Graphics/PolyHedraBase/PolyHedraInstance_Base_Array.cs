@@ -25,7 +25,11 @@ namespace Engine3D.Graphics.PolyHedraBase
 
         public BufferDataType this[uint idx]
         {
-            get { return Array[idx]; }
+            get
+            {
+                
+                return Array[idx];
+            }
         }
         public BufferDataType this[int idx]
         {

@@ -12,6 +12,8 @@ namespace Engine3D.Graphics.PolyHedraBase
         protected readonly BufferType Buffer;
         protected readonly EntryContainerDynamic<DataType> InstanceData;
 
+        public int Count { get { return InstanceData.Length; } }
+
         public PolyHedraInstance_Base_BufferData(PolyHedra ph)
         {
             PH = ph;

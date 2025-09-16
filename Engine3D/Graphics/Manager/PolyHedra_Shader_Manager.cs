@@ -5,7 +5,7 @@ using Engine3D.Graphics.Basic.Uniforms;
 
 namespace Engine3D.Graphics.Manager
 {
-    public class PolyHedraShaderManager : GraphicsManager
+    public class PolyHedra_Shader_Manager : GraphicsManager
     {
         //  Global
         public DataUniform<SizeRatio> ViewPortSizeRatio;
@@ -36,7 +36,7 @@ namespace Engine3D.Graphics.Manager
 
 
 
-        public PolyHedraShaderManager(string shaderDir) : base()
+        public PolyHedra_Shader_Manager(string shaderDir) : base()
         {
             //ConsoleLog.Log("Manager");
 

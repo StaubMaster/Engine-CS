@@ -65,7 +65,7 @@ void main()
 	//col = (col * fs_in.GrayLInter[0]) + (fs_in.GrayLInter[1] * vec3((col.r + col.g + col.b) / 3));
 
 	//	light
-	//col = col * light_factor;
+	col = col * light_factor;
 
 	//	depth
 	//col = (col * (1.0 - depth_factor)) + (depth_factor * depthFadeColor);

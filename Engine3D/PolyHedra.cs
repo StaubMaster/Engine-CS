@@ -76,6 +76,10 @@ namespace Engine3D.Abstract3D
 
             IsEdit = false;
         }
+        public static PolyHedra FromTextFile(string path)
+        {
+            return BodyParse.TBodyFile.LoadTextFile(path);
+        }
 
         public int CornerCount()
         {
@@ -217,6 +221,8 @@ namespace Engine3D.Abstract3D
 
             return new Intersekt.RayInterval(ray, interval, idx);
         }
+
+
 
         public void ToBuffer(BodyElemBuffer buffer)
         {

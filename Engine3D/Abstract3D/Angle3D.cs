@@ -224,9 +224,9 @@ namespace Engine3D.Abstract3D
         public Angle3D Axis()
         {
             return new Angle3D(
-                Math.Round(_A / Quad) * Quad,
-                Math.Round(_S / Quad) * Quad,
-                Math.Round(_D / Quad) * Quad
+                Math.Round(_A / Deg90) * Deg90,
+                Math.Round(_S / Deg90) * Deg90,
+                Math.Round(_D / Deg90) * Deg90
                 );
         }
 
@@ -244,18 +244,19 @@ namespace Engine3D.Abstract3D
 
 
 
-        public const double Full = Math.PI * 2.0;
-        public const double Half = Math.PI;
-        public const double Quad = Math.PI / 2.0;
+        public const double Deg360 = Math.PI * 2.0;
+        public const double Deg180 = Math.PI;
+        public const double Deg90 = Math.PI / 2.0;
+        public const double Deg45 = Math.PI / 4.0;
 
         public static readonly Angle3D Yp = new Angle3D(Math.PI * 0.0, 0, 0);
         public static readonly Angle3D Yn = new Angle3D(Math.PI * 1.0, 0, 0);
 
-        public static readonly Angle3D Cp = new Angle3D(+Quad, 0, 0);
-        public static readonly Angle3D Cn = new Angle3D(-Quad, 0, 0);
+        public static readonly Angle3D Cp = new Angle3D(+Deg90, 0, 0);
+        public static readonly Angle3D Cn = new Angle3D(-Deg90, 0, 0);
 
-        public static readonly Angle3D Xp = new Angle3D(0, +Quad, 0);
-        public static readonly Angle3D Xn = new Angle3D(0, -Quad, 0);
+        public static readonly Angle3D Xp = new Angle3D(0, +Deg90, 0);
+        public static readonly Angle3D Xn = new Angle3D(0, -Deg90, 0);
 
 
 

@@ -47,8 +47,10 @@ namespace Engine3D.Abstract3D
         public ArrayList<DisplayPolyHedra> AllPolyHedras;
         public ArrayList<DisplayBody> AllBodysOld;
 
-        private List<PolyHedraInstance_3D_BufferData> AllBodys;
-        private List<EntryContainerDynamic<PolyHedraInstance_3D_Data>.Entry> AllTrans;
+        public List<PolyHedra> PHs;
+        public List<PolyHedraInstance_3D_BufferData> PHs_BufferDatas;
+        public PolyHedraInstance_3D_Array PHs_Array;
+        public List<EntryContainerDynamic<PolyHedraInstance_3D_Data>.Entry> PHs_Trans;
 
         private string DirPath;
 
@@ -59,8 +61,10 @@ namespace Engine3D.Abstract3D
             AllPolyHedras = new ArrayList<DisplayPolyHedra>();
             AllBodysOld = new ArrayList<DisplayBody>();
 
-            AllBodys = new List<PolyHedraInstance_3D_BufferData>();
-            AllTrans = new List<EntryContainerBase<PolyHedraInstance_3D_Data>.Entry>();
+            PHs = new List<PolyHedra>();
+            PHs_BufferDatas = new List<PolyHedraInstance_3D_BufferData>();
+            PHs_Array = new PolyHedraInstance_3D_Array(PHs_BufferDatas.ToArray());
+            PHs_Trans = new List<EntryContainerBase<PolyHedraInstance_3D_Data>.Entry>();
 
             DirPath = "";
 
@@ -85,13 +89,16 @@ namespace Engine3D.Abstract3D
         public void Edit_Insert_Body(Transformation3D trans)
         {
             AllBodysOld.Insert(new DisplayBody(AllPolyHedras[AllPolyHedras.Count - 1], trans));
-            AllTrans.Add(AllBodys[AllBodys.Count - 1].Alloc(1));
+
+            EntryContainerBase<PolyHedraInstance_3D_Data>.Entry entry = PHs_BufferDatas[PHs_BufferDatas.Count - 1].Alloc(1);
+            entry[0] = new PolyHedraInstance_3D_Data(trans);
+            PHs_Trans.Add(entry);
         }
         public void Edit_Remove_Body(int idx)
         {
             AllBodysOld.Remove(idx);
-            AllTrans[idx].Dispose();
-            AllTrans.RemoveAt(idx);
+            PHs_Trans[idx].Dispose();
+            PHs_Trans.RemoveAt(idx);
         }
 
         public void Edit_Change_Dir(string dir)
@@ -101,29 +108,31 @@ namespace Engine3D.Abstract3D
         public void Edit_Insert_PolyRel(string path)
         {
             AllPolyHedras.Insert(new DisplayPolyHedra(DirPath + path));
-            AllBodys.Add(new PolyHedraInstance_3D_BufferData(DirPath + path));
+
+            PolyHedra ph = PolyHedra.FromTextFile(DirPath + path);
+            PHs.Add(ph);
+            PHs_BufferDatas.Add(new PolyHedraInstance_3D_BufferData(ph));
+            PHs_Array = new PolyHedraInstance_3D_Array(PHs_BufferDatas.ToArray());
         }
         public void Edit_Insert_PolyAbs(string path)
         {
             AllPolyHedras.Insert(new DisplayPolyHedra(path));
-            AllBodys.Add(new PolyHedraInstance_3D_BufferData(path));
+
+            PolyHedra ph = PolyHedra.FromTextFile(path);
+            PHs.Add(ph);
+            PHs_BufferDatas.Add(new PolyHedraInstance_3D_BufferData(ph));
+            PHs_Array = new PolyHedraInstance_3D_Array(PHs_BufferDatas.ToArray());
         }
 
 
 
         public void Update()
         {
-            for (int i = 0; i < AllBodys.Count; i++)
-            {
-                AllBodys[i].DataUpdate();
-            }
+            PHs_Array.Update();
         }
-        public void DrawInst()
+        public void Draw()
         {
-            for (int i = 0; i < AllBodys.Count; i++)
-            {
-                AllBodys[i].DrawInst();
-            }
+            PHs_Array.Draw();
         }
 
 

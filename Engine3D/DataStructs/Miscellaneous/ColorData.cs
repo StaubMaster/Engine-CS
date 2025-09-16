@@ -31,12 +31,14 @@ namespace Engine3D.DataStructs
     }
     public struct ColorUData : IData
     {
-        uint RGB;
+        public uint RGB;
 
         public ColorUData(uint rgb)
         {
             RGB = rgb;
         }
+
+
 
         public void ToUniform(params int[] locations)
         {

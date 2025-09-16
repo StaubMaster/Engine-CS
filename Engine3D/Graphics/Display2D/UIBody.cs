@@ -46,7 +46,6 @@ namespace Engine3D.Graphics.Display2D.UserInterface
             Transformation3D.ToBuffer(stride, ref offset, divisor, bindIndex[6], bindIndex[7], bindIndex[8]);
         }
     }
-
     public class UIBody_Buffer : PolyHedraInstance_Base_Buffer<UIBody_Data>
     {
         public UIBody_Buffer() : base()
