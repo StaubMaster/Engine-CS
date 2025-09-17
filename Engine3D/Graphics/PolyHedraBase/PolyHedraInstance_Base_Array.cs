@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Engine3D.Miscellaneous.EntryContainer;
 
 namespace Engine3D.Graphics.PolyHedraBase
 {
@@ -40,7 +36,7 @@ namespace Engine3D.Graphics.PolyHedraBase
         {
             for (int i = 0; i < Array.Length; i++)
             {
-                Array[i].DataUpdate();
+                Array[i].UpdateInst();
             }
         }
         public void Draw()

@@ -20,12 +20,12 @@ namespace Engine3D.Miscellaneous.EntryContainer
                 Offset = off;
                 Length = len;
             }
-            protected Entry(Entry other)
+            protected Entry(Entry entry)
             {
-                Container = other.Container;
-                EntryIndex = other.EntryIndex;
-                Offset = other.Offset;
-                Length = other.Length;
+                Container = entry.Container;
+                EntryIndex = entry.EntryIndex;
+                Offset = entry.Offset;
+                Length = entry.Length;
             }
 
             public T this[int idx]

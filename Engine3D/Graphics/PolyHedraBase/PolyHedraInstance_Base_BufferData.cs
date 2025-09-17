@@ -24,12 +24,17 @@ namespace Engine3D.Graphics.PolyHedraBase
             InstanceData = new EntryContainerDynamic<DataType>();
         }
 
+        public Intersekt.RayInterval Intersekt(Ray3D ray, Transformation3D trans)
+        {
+            return PH.Intersekt(ray, trans);
+        }
+
         public EntryContainerDynamic<DataType>.Entry Alloc(int size)
         {
             return InstanceData.Alloc(size);
         }
 
-        public void DataUpdate()
+        public void UpdateInst()
         {
             if (InstanceData.DataChanged)
             {

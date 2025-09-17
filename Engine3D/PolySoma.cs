@@ -18,39 +18,13 @@ namespace Engine3D.Abstract3D
 {
     public class PolySoma
     {
-        private struct BodyStatic
-        {
-            private PolyHedra Poly;
-            private BodyElemBuffer Buffer;
-            private Transformation3D Trans;
-
-            public BodyStatic(PolyHedra poly, BodyElemBuffer buffer, Transformation3D trans)
-            {
-                Poly = poly;
-                Buffer = buffer;
-                Trans = trans;
-            }
-            public void Draw(ref SUniformLocation transUni)
-            {
-                transUni.Value(new CUniformTransformation(Trans));
-                Buffer.Draw();
-            }
-            public void Draw(BodyElemUniShader shader)
-            {
-                shader.Trans.Value(Trans);
-                Buffer.Draw();
-            }
-        }
-
-
-
-        public ArrayList<DisplayPolyHedra> AllPolyHedras;
-        public ArrayList<DisplayBody> AllBodysOld;
+        //public ArrayList<DisplayPolyHedra> AllPolyHedras;
+        //public ArrayList<DisplayBody> AllBodysOld;
 
         public List<PolyHedra> PHs;
         public List<PolyHedraInstance_3D_BufferData> PHs_BufferDatas;
         public PolyHedraInstance_3D_Array PHs_Array;
-        public List<EntryContainerDynamic<PolyHedraInstance_3D_Data>.Entry> PHs_Trans;
+        public List<PolyHedraInstance_3D_Array.Entry> PHs_Trans;
 
         private string DirPath;
 
@@ -58,13 +32,13 @@ namespace Engine3D.Abstract3D
 
         public PolySoma()
         {
-            AllPolyHedras = new ArrayList<DisplayPolyHedra>();
-            AllBodysOld = new ArrayList<DisplayBody>();
+            //AllPolyHedras = new ArrayList<DisplayPolyHedra>();
+            //AllBodysOld = new ArrayList<DisplayBody>();
 
             PHs = new List<PolyHedra>();
             PHs_BufferDatas = new List<PolyHedraInstance_3D_BufferData>();
             PHs_Array = new PolyHedraInstance_3D_Array(PHs_BufferDatas.ToArray());
-            PHs_Trans = new List<EntryContainerBase<PolyHedraInstance_3D_Data>.Entry>();
+            PHs_Trans = new List<PolyHedraInstance_3D_Array.Entry>();
 
             DirPath = "";
 
@@ -74,29 +48,30 @@ namespace Engine3D.Abstract3D
         public void Edit_Begin()
         {
             if (IsEdit) { return; }
-            AllPolyHedras.EditBegin();
-            AllBodysOld.EditBegin();
+            //AllPolyHedras.EditBegin();
+            //AllBodysOld.EditBegin();
             IsEdit = true;
         }
         public void Edit_Stop()
         {
             if (!IsEdit) { return; }
-            AllPolyHedras.EditEnd();
-            AllBodysOld.EditEnd();
+            //AllPolyHedras.EditEnd();
+            //AllBodysOld.EditEnd();
             IsEdit = false;
         }
 
         public void Edit_Insert_Body(Transformation3D trans)
         {
-            AllBodysOld.Insert(new DisplayBody(AllPolyHedras[AllPolyHedras.Count - 1], trans));
+            //AllBodysOld.Insert(new DisplayBody(AllPolyHedras[AllPolyHedras.Count - 1], trans));
 
-            EntryContainerBase<PolyHedraInstance_3D_Data>.Entry entry = PHs_BufferDatas[PHs_BufferDatas.Count - 1].Alloc(1);
+            PolyHedraInstance_3D_Array.Entry entry = PHs_Array.Alloc(PHs_BufferDatas.Count - 1, 1);
             entry[0] = new PolyHedraInstance_3D_Data(trans);
             PHs_Trans.Add(entry);
         }
         public void Edit_Remove_Body(int idx)
         {
-            AllBodysOld.Remove(idx);
+            //AllBodysOld.Remove(idx);
+
             PHs_Trans[idx].Dispose();
             PHs_Trans.RemoveAt(idx);
         }
@@ -107,7 +82,7 @@ namespace Engine3D.Abstract3D
         }
         public void Edit_Insert_PolyRel(string path)
         {
-            AllPolyHedras.Insert(new DisplayPolyHedra(DirPath + path));
+            //AllPolyHedras.Insert(new DisplayPolyHedra(DirPath + path));
 
             PolyHedra ph = PolyHedra.FromTextFile(DirPath + path);
             PHs.Add(ph);
@@ -116,7 +91,7 @@ namespace Engine3D.Abstract3D
         }
         public void Edit_Insert_PolyAbs(string path)
         {
-            AllPolyHedras.Insert(new DisplayPolyHedra(path));
+            //AllPolyHedras.Insert(new DisplayPolyHedra(path));
 
             PolyHedra ph = PolyHedra.FromTextFile(path);
             PHs.Add(ph);
@@ -142,7 +117,7 @@ namespace Engine3D.Abstract3D
             Intersekt.RayInterval intersekt = new Intersekt.RayInterval(ray);
             idx = -1;
 
-            for (int i = 0; i < AllBodysOld.Count; i++)
+            /*for (int i = 0; i < AllBodysOld.Count; i++)
             {
                 Intersekt.RayInterval inter = AllBodysOld[i].Intersekt(ray);
                 if (inter.Is)
@@ -153,20 +128,20 @@ namespace Engine3D.Abstract3D
                         idx = i;
                     }
                 }
-            }
+            }*/
 
             return intersekt;
         }
         private string AllPlaced(DisplayPolyHedra poly)
         {
             string str = "";
-            for (int i = 0; i < AllBodysOld.Count; i++)
+            /*for (int i = 0; i < AllBodysOld.Count; i++)
             {
                 if (AllBodysOld[i].Body == poly)
                 {
                     str += AllBodysOld[i].ToYMT();
                 }
-            }
+            }*/
             return str;
         }
         public string ToYMT()

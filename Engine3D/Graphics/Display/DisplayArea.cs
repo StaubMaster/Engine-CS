@@ -151,6 +151,10 @@ namespace Engine3D.Graphics.Display
                 this.ClientSize.Y
             );
         }
+        public Engine3D.DataStructs.SizeRatio SizeRatio()
+        {
+            return new DataStructs.SizeRatio(ClientSize.X, ClientSize.Y);
+        }
 
 
 

@@ -7,6 +7,12 @@ namespace Engine3D.Graphics.Manager
 {
     public class PolyHedra_Shader_Manager : GraphicsManager
     {
+        /*
+         * Shaders
+         *  Box
+         *  Line
+         */
+
         //  Global
         public DataUniform<SizeRatio> ViewPortSizeRatio;
         public DataUniform<Transformation3D> View;
@@ -33,13 +39,12 @@ namespace Engine3D.Graphics.Manager
 
 
         public GenericShader InstShader;
+        public GenericShader InstWireShader;
 
 
 
         public PolyHedra_Shader_Manager(string shaderDir) : base()
         {
-            //ConsoleLog.Log("Manager");
-
             InstShader = new GenericShader(new ShaderCode[]
             {
                 ShaderCode.FromFile(shaderDir + "Inst/Inst.vert"),
@@ -47,10 +52,20 @@ namespace Engine3D.Graphics.Manager
                 ShaderCode.FromFile(shaderDir + "Inst/Inst.frag"),
             });
 
+            InstWireShader = new GenericShader(new ShaderCode[]
+            {
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.vert"),
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.geom"),
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.frag"),
+            });
+
             GenericShader[] ShaderList = new GenericShader[]
             {
                 InstShader,
+                InstWireShader,
             };
+
+
 
             ViewPortSizeRatio = new DataUniform<SizeRatio>("screenRatios", ShaderList);
             View = new DataUniform<Transformation3D>("view", ShaderList);

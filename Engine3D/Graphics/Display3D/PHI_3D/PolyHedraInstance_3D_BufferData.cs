@@ -21,10 +21,6 @@ namespace Engine3D.Graphics.Display3D
             Path = null;
         }
 
-        public Intersekt.RayInterval Intersekt(Ray3D ray, Transformation3D trans)
-        {
-            return PH.Intersekt(ray, trans);
-        }
         public AxisBox3D BoxFit()
         {
             return PH.CalcBox();

@@ -10,6 +10,16 @@ namespace Engine3D.DataStructs
         public float RatioW;
         public float RatioH;
 
+        public SizeRatio(Abstract2D.Point2D size)
+        {
+            SizeW = size.X;
+            SizeH = size.Y;
+
+            RatioW = float.NaN;
+            RatioH = float.NaN;
+
+            CalcRatio();
+        }
         public SizeRatio(float w, float h)
         {
             SizeW = w;
