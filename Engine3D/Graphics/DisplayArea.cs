@@ -24,7 +24,7 @@ namespace Engine3D.Graphics.Display
         private readonly Action FuncFrame;
         private readonly Action FuncClosing;
 
-        public readonly OutPut.Uniform.Specific.CUniformScreenRatio ScreenRatio;
+        private DataStructs.SizeRatio SizeRatioData;
 
         private static GameWindowSettings DefaultGameSettings()
         {
@@ -72,7 +72,7 @@ namespace Engine3D.Graphics.Display
                 GL.FrontFace(FrontFaceDirection.Cw);
             }
 
-            ScreenRatio = new OutPut.Uniform.Specific.CUniformScreenRatio(this.ClientSize.X, this.ClientSize.Y);
+            SizeRatioData = new DataStructs.SizeRatio(ClientSize.X, ClientSize.Y);
 
             MouseDelta = new Vector2();
             MouseLockChanging = false;
@@ -87,7 +87,7 @@ namespace Engine3D.Graphics.Display
             base.OnResize(e);
             Center = new Vector2(ClientSize.X / 2, ClientSize.Y / 2);
             GL.Viewport(0, 0, this.ClientSize.X, this.ClientSize.Y);
-            ScreenRatio.Calc(this.ClientSize.X, this.ClientSize.Y);
+            SizeRatioData = new DataStructs.SizeRatio(ClientSize.X, ClientSize.Y);
         }
 
 
@@ -153,7 +153,7 @@ namespace Engine3D.Graphics.Display
         }
         public Engine3D.DataStructs.SizeRatio SizeRatio()
         {
-            return new DataStructs.SizeRatio(ClientSize.X, ClientSize.Y);
+            return SizeRatioData;
         }
 
 
@@ -211,8 +211,8 @@ namespace Engine3D.Graphics.Display
             float mouseCenterY = Center.Y - this.MousePosition.Y;
 
             return new Abstract3D.Point3D(
-                mouseCenterX / (ScreenRatio.Data[0] * ScreenRatio.Data[2] * 0.5f),
-                mouseCenterY / (ScreenRatio.Data[1] * ScreenRatio.Data[3] * 0.5f),
+                mouseCenterX / (SizeRatioData.SizeW * SizeRatioData.RatioW * 0.5f),
+                mouseCenterY / (SizeRatioData.SizeH * SizeRatioData.RatioH * 0.5f),
                 1);
         }
         public float MouseScroll()
@@ -247,6 +247,7 @@ namespace Engine3D.Graphics.Display
 
 
 
+        //  Put this stuff in a different file ?
         public interface KeyState
         {
             public bool IsDown();

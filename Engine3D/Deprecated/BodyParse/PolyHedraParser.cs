@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 
 using Engine3D.Abstract3D;
-using Engine3D.OutPut.Shader;
 
 using Engine3D.StringParse;
 

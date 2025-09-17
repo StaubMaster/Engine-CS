@@ -4,15 +4,15 @@ namespace Engine3D.DataStructs
 {
     public struct DepthData : IData
     {
-        float Near;
-        float Far;
+        public float Near;
+        public float Far;
 
-        float Diff;
-        float Summ;
-        float Mul2;
+        private float Diff;
+        private float Summ;
+        private float Mul2;
 
-        float Factor0;
-        float Factor1;
+        private float Factor0;
+        private float Factor1;
 
         public DepthData(float near, float far)
         {

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 
 using Engine3D.Graphics;
-using Engine3D.OutPut.Uniform;
-using Engine3D.OutPut.Uniform.Specific;
 using Engine3D.Graphics.Display;
 using Engine3D.Miscellaneous;
 
@@ -132,9 +130,10 @@ namespace Engine3D.Abstract3D
 
             return intersekt;
         }
-        private string AllPlaced(DisplayPolyHedra poly)
+        private string AllPlaced()
         {
             string str = "";
+
             /*for (int i = 0; i < AllBodysOld.Count; i++)
             {
                 if (AllBodysOld[i].Body == poly)
@@ -142,6 +141,27 @@ namespace Engine3D.Abstract3D
                     str += AllBodysOld[i].ToYMT();
                 }
             }*/
+
+            /*public string ToYMT()
+            {
+                string str = "";
+                str += "body ";
+                str += '"' + Path + '"';
+                str += ";\r\n";
+                return str;
+            }*/
+
+            /*public string ToYMT()
+            {
+                string str = "";
+                str += "place ";
+                str += "(" + Trans.Pos.Y + ":" + Trans.Pos.X + ":" + Trans.Pos.C + ")";
+                str += " ";
+                str += "(" + Trans.Rot.A + ":" + Trans.Rot.S + ":" + Trans.Rot.D + ")";
+                str += ";\r\n";
+                return str;
+            }*/
+
             return str;
         }
         public string ToYMT()

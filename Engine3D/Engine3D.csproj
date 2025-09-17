@@ -11,27 +11,48 @@
     <Compile Remove="Deprecated\InnPut\KeyBoard\**" />
     <Compile Remove="Deprecated\InnPut\Mouse\**" />
     <Compile Remove="Deprecated\InnPut\ValueControl\**" />
+    <Compile Remove="GraphicsOld\Forms\**" />
+    <Compile Remove="Graphics\Display\**" />
+    <Compile Remove="OutPut\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
+    <EmbeddedResource Remove="GraphicsOld\Forms\**" />
+    <EmbeddedResource Remove="Graphics\Display\**" />
+    <EmbeddedResource Remove="OutPut\**" />
     <None Remove="Deprecated\InnPut\KeyBoard\**" />
     <None Remove="Deprecated\InnPut\Mouse\**" />
     <None Remove="Deprecated\InnPut\ValueControl\**" />
     <None Remove="Deprecated\InnPut\KeyBoard\**" />
     <None Remove="Deprecated\InnPut\Mouse\**" />
     <None Remove="Deprecated\InnPut\ValueControl\**" />
+    <None Remove="GraphicsOld\Forms\**" />
+    <None Remove="Graphics\Display\**" />
+    <None Remove="OutPut\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="CScene.cs" />
+    <Compile Remove="Deprecated\Cache.cs" />
     <Compile Remove="Deprecated\CBodyOld.cs" />
-    <Compile Remove="GraphicsOld\Forms\Movement.cs" />
-    <Compile Remove="Graphics\Display\DisplayPoint.cs" />
-    <Compile Remove="Graphics\Display\DisplayScale.cs" />
-    <Compile Remove="OutPut\Shader\SShaderFileTemplate.cs" />
-    <Compile Remove="OutPut\Shader\SShaderProgramTemplate.cs" />
+    <Compile Remove="Deprecated\Entity\BodyDynamic.cs" />
+    <Compile Remove="Deprecated\Entity\TransBody.cs" />
+    <Compile Remove="Deprecated\NameCache.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\BoxProgram.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\Icon.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\Select.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\Surf_Chunk.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\Surf_Layer.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\Text.cs" />
+    <Compile Remove="GraphicsOld\ShaderBuffer\TransUni.cs" />
+    <Compile Remove="Graphics\Display3D\BodyElemBuffer.cs" />
+    <Compile Remove="Graphics\Display3D\BodyElemUniShader.cs" />
+    <Compile Remove="Graphics\Display3D\BodyElemUniWireShader.cs" />
+    <Compile Remove="Graphics\Display3D\PHEI_Buffer.cs" />
+    <Compile Remove="Graphics\Display3D\PHE_Buffer.cs" />
   </ItemGroup>
 
   <ItemGroup>

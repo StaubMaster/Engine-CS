@@ -45,15 +45,6 @@ namespace Engine3D.Graphics.Display
         {
             Buffer.Draw_Main();
         }
-
-        public string ToYMT()
-        {
-            string str = "";
-            str += "body ";
-            str += '"' + Path + '"';
-            str += ";\r\n";
-            return str;
-        }
     }
     public class DisplayBody
     {
@@ -85,17 +76,6 @@ namespace Engine3D.Graphics.Display
         {
             shader.Trans.Value(Trans);
             Body.Draw();
-        }
-
-        public string ToYMT()
-        {
-            string str = "";
-            str += "place ";
-            str += "(" + Trans.Pos.Y + ":" + Trans.Pos.X + ":" + Trans.Pos.C + ")";
-            str += " ";
-            str += "(" + Trans.Rot.A + ":" + Trans.Rot.S + ":" + Trans.Rot.D + ")";
-            str += ";\r\n";
-            return str;
         }
     }
 }

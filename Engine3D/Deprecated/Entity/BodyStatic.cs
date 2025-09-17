@@ -13,7 +13,7 @@ namespace Engine3D.Entity
     {
         private Point3D[] Ecken;
         private Tri[] Seiten;
-        private TransUniBuffers Buffer;
+        //private TransUniBuffers Buffer;
 
         public struct Tri
         {
@@ -36,12 +36,12 @@ namespace Engine3D.Entity
         {
             Ecken = ecken.ToArray();
             Seiten = seiten.ToArray();
-            Buffer = null;
+            //Buffer = null;
         }
-        public BodyDynamic ToDynamic()
+        /*public BodyDynamic ToDynamic()
         {
             return new BodyDynamic(Ecken, Seiten);
-        }
+        }*/
 
         public AxisBox3D BoxFit()
         {
@@ -117,13 +117,13 @@ namespace Engine3D.Entity
 
         public void BufferCreate()
         {
-            Buffer = new TransUniBuffers();
-            Buffer.Create();
+            //Buffer = new TransUniBuffers();
+            //Buffer.Create();
         }
         public void BufferDelete()
         {
-            Buffer.Delete();
-            Buffer = null;
+            //Buffer.Delete();
+            //Buffer = null;
         }
         public void BufferFill()
         {
@@ -156,34 +156,15 @@ namespace Engine3D.Entity
                 }
             }
 
-            Buffer.Koords(koords);
-            Buffer.Indexe(indexe);
-            Buffer.Colors(colors);
+            //Buffer.Koords(koords);
+            //Buffer.Indexe(indexe);
+            //Buffer.Colors(colors);
         }
         public void BufferDraw()
         {
-            Buffer.Draw();
+            //Buffer.Draw();
         }
 
-        public void ToBuffer(Graphics.Display3D.PHE_Buffer buffer)
-        {
-            buffer.Bind_Main_Corners(Ecken);
-
-            {
-                IndexTriangle[] faces = new IndexTriangle[Seiten.Length];
-                ColorUData[] cols = new ColorUData[Seiten.Length];
-
-                for (int i = 0; i < Seiten.Length; i++)
-                {
-                    Tri t = Seiten[i];
-                    faces[i] = new IndexTriangle(t.C, t.B, t.A);
-                    cols[i] = new ColorUData(t.Color);
-                }
-
-                buffer.Bind_Main_Indexes(faces);
-                buffer.Bind_Main_Colors(cols);
-            }
-        }
         public PolyHedra ToPolyHedra()
         {
             PolyHedra template = new PolyHedra();

@@ -224,24 +224,6 @@ namespace Engine3D.Abstract3D
 
 
 
-        public void ToBuffer(BodyElemBuffer buffer)
-        {
-            buffer.Bind_Corners(Corners.ToArray());
-            buffer.Bind_Indexes(Faces.ToArray());
-            buffer.Bind_Colors(Colors.ToArray());
-        }
-        public BodyElemBuffer ToBuffer()
-        {
-            BodyElemBuffer buffer = new BodyElemBuffer();
-            ToBuffer(buffer);
-            return buffer;
-        }
-        public void ToBuffer(Graphics.Display3D.PHE_Buffer buffer)
-        {
-            buffer.Bind_Main_Corners(Corners.ToArray());
-            buffer.Bind_Main_Indexes(Faces.ToArray());
-            buffer.Bind_Main_Colors(Colors.ToArray());
-        }
         public void ToBuffer(Graphics.PolyHedraBase.PolyHedra_Base_Buffer buffer)
         {
             buffer.Bind_Main_Corners(Corners.ToArray());
