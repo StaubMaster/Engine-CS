@@ -7,10 +7,20 @@ namespace Engine3D.Graphics.Manager
 {
     public class PolyHedra_Shader_Manager : GraphicsManager
     {
-        /*
-         * Shaders
-         *  Box
-         *  Line
+        /*  Wire
+         *      create Individual Shaders for for AxisBox3D and Line3D and such
+         *      or create a MainBuffer with the WireFrame of a Box
+         *      and then use Instances for Boxes in different places
+         *      
+         *      how would it work for Lines
+         *      Transform and Scale ?
+         *      
+         *      I kind of want to make a seperate Shader for PolyHedra Wire as well
+         *          befor that I want to change Polyhedra Buffers
+         *          with Normals and no Element stuff
+         *          and maybe Texture-Coords / Color-Indexes
+         *          use Element stuff for Wire ?
+         *          since the Corners are identical
          */
 
         //  Global

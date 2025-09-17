@@ -11,13 +11,13 @@ namespace Engine3D.Abstract3D
         {
             return new Transformation3D(Point3D.Default(), Angle3D.Default());
         }
-        public static Transformation3D Null()
+        public static Transformation3D NaN()
         {
-            return new Transformation3D(Point3D.Null(), Angle3D.Null());
+            return new Transformation3D(Point3D.NaN(), Angle3D.NaN());
         }
-        public bool Is()
+        public bool IsNaN()
         {
-            return (Pos.Is() || Rot.Is());
+            return (Pos.IsNaN() || Rot.IsNaN());
         }
 
         //public Transformation3D() { Pos = Point3D.Default(); Rot = Angle3D.Default(); }
@@ -74,15 +74,15 @@ namespace Engine3D.Abstract3D
 
         public static void ShaderFloats(Transformation3D trans, float[] flt, int idx)
         {
-            if (trans.Is())
+            if (!trans.IsNaN())
             {
                 Point3D.ShaderFloats(trans.Pos, flt, idx + 0);
                 Angle3D.ShaderFloats(trans.Rot, flt, idx + 3);
             }
             else
             {
-                Point3D.ShaderFloats(Point3D.Null(), flt, idx + 0);
-                Angle3D.ShaderFloats(Angle3D.Null(), flt, idx + 3);
+                Point3D.ShaderFloats(Point3D.NaN(), flt, idx + 0);
+                Angle3D.ShaderFloats(Angle3D.NaN(), flt, idx + 3);
             }
         }
 

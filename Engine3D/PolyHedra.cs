@@ -195,7 +195,7 @@ namespace Engine3D.Abstract3D
                 Point3D c = Corners[face.C];
 
                 Intersekt.RayInterval d;
-                if (trans.Is())
+                if (!trans.IsNaN())
                 {
                     d = Abstract3D.Intersekt.Ray_Triangle(ray,
                         trans.TFore(a),

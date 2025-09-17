@@ -19,7 +19,7 @@ namespace Engine3D.OutPut
 
         public void Update(Point3D mouse_ray)
         {
-            if (!mouse_ray.Is()) { mouse_ray = Point3D.Default(); }
+            if (mouse_ray.IsNaN()) { mouse_ray = Point3D.Default(); }
             Ray = new Ray3D(Trans.Pos, mouse_ray - Trans.Rot);
         }
     }

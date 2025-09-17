@@ -40,13 +40,13 @@ namespace Engine3D.Abstract3D
         {
             return new Angle3D(0, 0, 0);
         }
-        public static Angle3D Null()
+        public static Angle3D NaN()
         {
             return new Angle3D(double.NaN, double.NaN, double.NaN);
         }
-        public bool Is()
+        public bool IsNaN()
         {
-            return (!double.IsNaN(_A) && !double.IsNaN(_S) && !double.IsNaN(_D));
+            return (double.IsNaN(_A) || double.IsNaN(_S) || double.IsNaN(_D));
         }
 
         /*public Angle3D()
@@ -280,7 +280,7 @@ namespace Engine3D.Abstract3D
         }
         public static void ShaderFloats(Angle3D wnk, float[] flt, int idx)
         {
-            if (wnk.Is())
+            if (!wnk.IsNaN())
             {
                 flt[idx] = (float)wnk.sinA; idx++;
                 flt[idx] = (float)wnk.sinS; idx++;

@@ -3,23 +3,35 @@
 namespace Engine3D.Abstract3D
 {
     //  rename to AxisBox
-    public class AxisBox3D
+    public struct AxisBox3D
     {
         public Point3D Min;
         public Point3D Max;
 
-        /*private static AxisBox3D Default()
+        public static AxisBox3D Default()
         {
             AxisBox3D ab = new AxisBox3D();
-            ab.Min = +Point3D.Inf_P;
-            ab.Max = +Point3D.Inf_N;
+            ab.Min = Point3D.Inf_P;
+            ab.Max = Point3D.Inf_N;
             return ab;
-        }*/
-        private AxisBox3D()
+        }
+        public static AxisBox3D NaN()
+        {
+            AxisBox3D ab = new AxisBox3D();
+            ab.Min = Point3D.NaN();
+            ab.Max = Point3D.NaN();
+            return ab;
+        }
+        public bool IsNaN()
+        {
+            return (Min.IsNaN() || Max.IsNaN());
+        }
+
+        /*private AxisBox3D()
         {
             Min = +Point3D.Inf_P;
             Max = +Point3D.Inf_N;
-        }
+        }*/
         private AxisBox3D(Point3D min, Point3D max)
         {
             Min = min;
@@ -28,7 +40,7 @@ namespace Engine3D.Abstract3D
 
         public static AxisBox3D MinMax(Point3D p1, Point3D p2)
         {
-            AxisBox3D box = new AxisBox3D();
+            AxisBox3D box = AxisBox3D.Default();
 
             box.Min.Y = Math.Min(p1.Y, p2.Y);
             box.Min.X = Math.Min(p1.X, p2.X);
@@ -42,7 +54,7 @@ namespace Engine3D.Abstract3D
         }
         public static AxisBox3D MinMax(Point3D[] arr)
         {
-            AxisBox3D box = new AxisBox3D();
+            AxisBox3D box = AxisBox3D.Default();
 
             for (int i = 0; i < arr.Length; i++)
             {
@@ -153,6 +165,17 @@ namespace Engine3D.Abstract3D
             return (a.Min.Y < b.Max.Y) && (a.Max.Y > b.Min.Y) &&
                    (a.Min.X < b.Max.X) && (a.Max.X > b.Min.X) &&
                    (a.Min.C < b.Max.C) && (a.Max.C > b.Min.C);
+        }
+
+
+
+
+
+        public const int SizeOf = Point3D.SizeOf + Point3D.SizeOf;
+        public static void ToBuffer(int stride, ref System.IntPtr offset, int divisor, params int[] bindIndex)
+        {
+            Point3D.ToBuffer(stride, ref offset, divisor, bindIndex[0]);
+            Point3D.ToBuffer(stride, ref offset, divisor, bindIndex[1]);
         }
     }
 }

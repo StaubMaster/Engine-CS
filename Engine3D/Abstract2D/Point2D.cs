@@ -11,13 +11,13 @@ namespace Engine3D.Abstract2D
         {
             return new Point2D(0, 0);
         }
-        public static Point2D Null()
+        public static Point2D NaN()
         {
             return new Point2D(float.NaN, float.NaN);
         }
-        public bool Is()
+        public bool IsNaN()
         {
-            return (!float.IsNaN(Y) && !float.IsNaN(X));
+            return (float.IsNaN(X) || float.IsNaN(Y));
         }
 
         public Point2D(float x, float y)

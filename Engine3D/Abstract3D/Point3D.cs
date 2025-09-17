@@ -12,13 +12,13 @@ namespace Engine3D.Abstract3D
         {
             return new Point3D(0, 0, 0);
         }
-        public static Point3D Null()
+        public static Point3D NaN()
         {
             return new Point3D(float.NaN, float.NaN, float.NaN);
         }
-        public bool Is()
+        public bool IsNaN()
         {
-            return (!double.IsNaN(Y) && !double.IsNaN(X) && !double.IsNaN(C));
+            return (double.IsNaN(Y) || double.IsNaN(X) || double.IsNaN(C));
         }
 
         /*public Point3D()
@@ -125,7 +125,6 @@ namespace Engine3D.Abstract3D
 
         public static readonly Point3D Inf_P = new Point3D(float.PositiveInfinity, float.PositiveInfinity, float.PositiveInfinity);
         public static readonly Point3D Inf_N = new Point3D(float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity);
-        public static readonly Point3D NaN = new Point3D(float.NaN, float.NaN, float.NaN);
 
 
 
@@ -143,7 +142,7 @@ namespace Engine3D.Abstract3D
         }
         public static void ShaderFloats(Point3D pkt, float[] flt, int idx)
         {
-            if (pkt.Is())
+            if (!pkt.IsNaN())
             {
                 flt[idx] = (float)pkt.Y; idx++;
                 flt[idx] = (float)pkt.X; idx++;

@@ -2,6 +2,11 @@
 
 namespace Engine3D.Abstract3D
 {
+    /*
+     * make struct
+     * move most of Intersekt here
+     * at least RayIntersekt
+     */
     public class Ray3D
     {
         public Point3D Pos;
@@ -32,7 +37,7 @@ namespace Engine3D.Abstract3D
         public Point3D Scale(double t)
         {
             if (double.IsNaN(t))
-                return Point3D.Null();
+                return Point3D.NaN();
             return Pos + (Dir * (float)t);
         }
 

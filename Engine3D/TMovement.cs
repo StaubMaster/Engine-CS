@@ -15,24 +15,24 @@ namespace Engine3D
     {
         public static void Unrestricted(ref Transformation3D trans, Point3D move, Angle3D spin)
         {
-            if (move.Is())
+            if (!move.IsNaN())
             {
                 trans.Pos += move - trans.Rot;
             }
 
-            if (spin.Is())
+            if (!spin.IsNaN())
             {
                 trans.Rot += spin;
             }
         }
         public static void FlatX(ref Transformation3D trans, Point3D move, Angle3D spin)
         {
-            if (move.Is())
+            if (!move.IsNaN())
             {
                 trans.Pos += move - new Angle3D(trans.Rot.A, 0, 0);
             }
 
-            if (spin.Is())
+            if (!spin.IsNaN())
             {
                 trans.Rot.A += spin.A;
                 trans.Rot.S += spin.S;
