@@ -44,24 +44,31 @@ namespace Engine3D.Graphics.Manager
                 ShaderCode.FromFile(shaderDir + "Grid/UI_Body.frag"),
             });
 
-            GenericShader[] ShaderList = new GenericShader[]
+            InitUniforms();
+        }
+
+        protected override GenericShader[] AllShaders()
+        {
+            return new GenericShader[]
             {
                 UIBodyShader,
             };
+        }
+        protected override void InitUniforms(GenericShader[] shaders)
+        {
+            ScreenRatio = new DataUniform<SizeRatio>("screenRatios", shaders);
 
-            ScreenRatio = new DataUniform<SizeRatio>("screenRatios", ShaderList);
+            Depth = new DataUniform<DepthData>("depthFactor", shaders);
+            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", shaders);
+            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", shaders);
 
-            Depth = new DataUniform<DepthData>("depthFactor", ShaderList);
-            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", ShaderList);
-            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", ShaderList);
+            LightSolar = new DataUniform<Point3D>("solar", shaders);
+            LightRange = new DataUniform<RangeData>("lightRange", shaders);
 
-            LightSolar = new DataUniform<Point3D>("solar", ShaderList);
-            LightRange = new DataUniform<RangeData>("lightRange", ShaderList);
+            OtherColor = new DataUniform<ColorUData>("colorOther", shaders);
+            OtherColorInter = new DataUniform<LInterData>("colorInterPol", shaders);
 
-            OtherColor = new DataUniform<ColorUData>("colorOther", ShaderList);
-            OtherColorInter = new DataUniform<LInterData>("colorInterPol", ShaderList);
-
-            GrayInter = new DataUniform<LInterData>("GrayInter", ShaderList);
+            GrayInter = new DataUniform<LInterData>("GrayInter", shaders);
         }
     }
 }

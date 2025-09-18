@@ -5,30 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Deprecated\InnPut\KeyBoard\**" />
-    <Compile Remove="Deprecated\InnPut\Mouse\**" />
-    <Compile Remove="Deprecated\InnPut\ValueControl\**" />
-    <Compile Remove="Deprecated\InnPut\KeyBoard\**" />
-    <Compile Remove="Deprecated\InnPut\Mouse\**" />
-    <Compile Remove="Deprecated\InnPut\ValueControl\**" />
+    <Compile Remove="Deprecated\InnPut\**" />
     <Compile Remove="GraphicsOld\Forms\**" />
     <Compile Remove="Graphics\Display\**" />
     <Compile Remove="OutPut\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\KeyBoard\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\Mouse\**" />
-    <EmbeddedResource Remove="Deprecated\InnPut\ValueControl\**" />
+    <EmbeddedResource Remove="Deprecated\InnPut\**" />
     <EmbeddedResource Remove="GraphicsOld\Forms\**" />
     <EmbeddedResource Remove="Graphics\Display\**" />
     <EmbeddedResource Remove="OutPut\**" />
-    <None Remove="Deprecated\InnPut\KeyBoard\**" />
-    <None Remove="Deprecated\InnPut\Mouse\**" />
-    <None Remove="Deprecated\InnPut\ValueControl\**" />
-    <None Remove="Deprecated\InnPut\KeyBoard\**" />
-    <None Remove="Deprecated\InnPut\Mouse\**" />
-    <None Remove="Deprecated\InnPut\ValueControl\**" />
+    <None Remove="Deprecated\InnPut\**" />
     <None Remove="GraphicsOld\Forms\**" />
     <None Remove="Graphics\Display\**" />
     <None Remove="OutPut\**" />

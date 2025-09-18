@@ -51,7 +51,9 @@ namespace Engine3D.Graphics.Manager
         public GenericShader InstShader;
         public GenericShader InstWireShader;
 
+        public GenericShader AxisBoxShader;
 
+        public GenericShader[] Auxiliary;
 
         public PolyHedra_Shader_Manager(string shaderDir) : base()
         {
@@ -69,28 +71,71 @@ namespace Engine3D.Graphics.Manager
                 ShaderCode.FromFile(shaderDir + "Inst/Wire.frag"),
             });
 
-            GenericShader[] ShaderList = new GenericShader[]
+            AxisBoxShader = new GenericShader(new ShaderCode[]
+            {
+                ShaderCode.FromFile(shaderDir + "Box/Box.vert"),
+                ShaderCode.FromFile(shaderDir + "Box/Box.geom"),
+                ShaderCode.FromFile(shaderDir + "Box/Box.frag"),
+            });
+        }
+        public PolyHedra_Shader_Manager(string shaderDir, params GenericShader[] shaders) : base()
+        {
+            InstShader = new GenericShader(new ShaderCode[]
+            {
+                ShaderCode.FromFile(shaderDir + "Inst/Inst.vert"),
+                ShaderCode.FromFile(shaderDir + "Inst/Inst.geom"),
+                ShaderCode.FromFile(shaderDir + "Inst/Inst.frag"),
+            });
+
+            InstWireShader = new GenericShader(new ShaderCode[]
+            {
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.vert"),
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.geom"),
+                ShaderCode.FromFile(shaderDir + "Inst/Wire.frag"),
+            });
+
+            AxisBoxShader = new GenericShader(new ShaderCode[]
+            {
+                ShaderCode.FromFile(shaderDir + "Box/Box.vert"),
+                ShaderCode.FromFile(shaderDir + "Box/Box.geom"),
+                ShaderCode.FromFile(shaderDir + "Box/Box.frag"),
+            });
+
+            Auxiliary = shaders;
+        }
+
+        protected override GenericShader[] AllShaders()
+        {
+            GenericShader[] main = new GenericShader[]
             {
                 InstShader,
                 InstWireShader,
+                AxisBoxShader,
             };
 
+            GenericShader[] shaders = new GenericShader[main.Length + Auxiliary.Length];
+            int i;
+            for (i = 0; i < main.Length; i++) { shaders[i] = main[i]; }
+            for (int j = 0; j < Auxiliary.Length; j++) { shaders[i] = Auxiliary[j]; i++; }
 
+            return shaders;
+        }
+        protected override void InitUniforms(GenericShader[] shaders)
+        {
+            ViewPortSizeRatio = new DataUniform<SizeRatio>("screenRatios", shaders);
+            View = new DataUniform<Transformation3D>("view", shaders);
 
-            ViewPortSizeRatio = new DataUniform<SizeRatio>("screenRatios", ShaderList);
-            View = new DataUniform<Transformation3D>("view", ShaderList);
+            Depth = new DataUniform<DepthData>("depthFactor", shaders);
+            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", shaders);
+            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", shaders);
 
-            Depth = new DataUniform<DepthData>("depthFactor", ShaderList);
-            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", ShaderList);
-            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", ShaderList);
+            LightSolar = new DataUniform<Point3D>("solar", shaders);
+            LightRange = new DataUniform<RangeData>("lightRange", shaders);
 
-            LightSolar = new DataUniform<Point3D>("solar", ShaderList);
-            LightRange = new DataUniform<RangeData>("lightRange", ShaderList);
+            OtherColor = new DataUniform<ColorUData>("colorOther", shaders);
+            OtherColorInter = new DataUniform<LInterData>("colorInterPol", shaders);
 
-            OtherColor = new DataUniform<ColorUData>("colorOther", ShaderList);
-            OtherColorInter = new DataUniform<LInterData>("colorInterPol", ShaderList);
-
-            GrayInter = new DataUniform<LInterData>("GrayInter", ShaderList);
+            GrayInter = new DataUniform<LInterData>("GrayInter", shaders);
         }
     }
 }
