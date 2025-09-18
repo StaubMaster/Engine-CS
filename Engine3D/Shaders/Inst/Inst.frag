@@ -12,11 +12,13 @@ uniform vec3		colorOther = vec3(1, 1, 1);
 
 uniform float[2]	GrayInter = { 1.0, 0.0 };
 
+uniform sampler1DArray texture0;
+
 
 
 in GeomInst {
-	vec3 Color;
 	vec3 Normal;
+	vec2 Tex;
 
 	vec3 Original;
 	vec3 Absolute;
@@ -90,7 +92,7 @@ void main()
  */
 
 	//	other color
-	vec3 col = fs_in.Color;
+	vec3 col = texture(texture0, fs_in.Tex).rgb;
 
 	//col = (col * colorInterPol[0]) + (colorInterPol[1] * colorOther);
 	col = (col * fs_in.AltColLInter[0]) + (fs_in.AltColLInter[1] * fs_in.AltColor);

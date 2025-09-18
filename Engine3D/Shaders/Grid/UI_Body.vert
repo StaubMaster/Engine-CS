@@ -7,30 +7,33 @@ uniform float[7] depthFactor;
 
 //	PolyHedra
 layout(location = 0) in vec3 VPos;
+layout(location = 1) in vec3 VNorm;
+layout(location = 2) in float VTex;
 
 //	Grid Pos
-layout(location = 1) in vec2 IPosNormal;
-layout(location = 2) in vec2 IPosPixel;
-layout(location = 3) in vec2 IPosOffset;
+layout(location = 4) in vec2 IPosNormal;
+layout(location = 5) in vec2 IPosPixel;
+layout(location = 6) in vec2 IPosOffset;
 
 //	Grid Size
-layout(location = 4) in vec2 ISize;
-layout(location = 5) in float IPadding;
+layout(location = 7) in vec2 ISize;
+layout(location = 8) in float IPadding;
 
 //	Body Scale
-layout(location = 6) in float IScale;
+layout(location = 9) in float IScale;
 
 //	Trans
-layout(location = 7) in vec3 IPos;
-layout(location = 8) in vec3 ISin;
-layout(location = 9) in vec3 ICos;
-
-
+layout(location = 10) in vec3 IPos;
+layout(location = 11) in vec3 ISin;
+layout(location = 12) in vec3 ICos;
 
 out VertUI {
 	vec3 Original;
 	vec3 Absolute;
 	vec3 Relative;
+
+	vec3 Normal;
+	float Tex;
 } vs_out;
 
 
@@ -103,4 +106,7 @@ void main()
 	vs_out.Absolute = ASD(vs_out.Original + IPos, ISin, ICos);
 	vs_out.Relative = vs_out.Absolute;
 	gl_Position = proj(vs_out.Relative);
+
+	vs_out.Normal = DSA(VNorm, ISin, ICos);
+	vs_out.Tex = VTex;
 }

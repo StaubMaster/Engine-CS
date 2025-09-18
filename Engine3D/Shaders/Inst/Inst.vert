@@ -9,24 +9,30 @@ uniform float[7] depthFactor;
 
 
 layout(location = 0) in vec3 VPos;
+layout(location = 1) in vec3 VNorm;
+layout(location = 2) in float VTex;
 
-layout(location = 1) in vec3 IPos;
-layout(location = 2) in vec3 ISin;
-layout(location = 3) in vec3 ICos;
+layout(location = 3) in vec3 IPos;
+layout(location = 4) in vec3 ISin;
+layout(location = 5) in vec3 ICos;
 
-layout(location = 4) in uint IColor;
-layout(location = 5) in vec2 IColLInter;
-layout(location = 6) in vec2 IGrayLInter;
+layout(location = 6) in uint IColor;
+layout(location = 7) in vec2 IColLInter;
+layout(location = 8) in vec2 IGrayLInter;
 
 out VertInst {
 	vec3 Original;
 	vec3 Absolute;
 	vec3 Relative;
 
+	vec3 Normal;
+	float Tex;
+
 	vec3 AltColor;
 	float[2] AltColLInter;
 	float[2] GrayLInter;
 } vs_out;
+
 
 
 void rot(inout float pls, inout float mns, in float fsin, in float fcos)
@@ -85,6 +91,9 @@ void main()
 	vs_out.Absolute = DSA(vs_out.Original, ISin, ICos) + IPos;
 	vs_out.Relative = ASD(vs_out.Absolute - view[0], view[1], view[2]);
 	gl_Position = proj(vs_out.Relative);
+
+	vs_out.Normal = DSA(VNorm, ISin, ICos);
+	vs_out.Tex = VTex;
 
 	vs_out.AltColor = UIntColor(IColor);
 	vs_out.AltColLInter[0] = IColLInter.x;

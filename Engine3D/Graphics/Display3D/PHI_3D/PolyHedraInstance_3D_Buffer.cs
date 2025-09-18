@@ -14,7 +14,7 @@ namespace Engine3D.Graphics.Display3D
             GL.BufferData(BufferTarget.ArrayBuffer, len * PolyHedraInstance_3D_Data.Size, data, BufferUsageHint.StreamDraw);
 
             System.IntPtr offset = System.IntPtr.Zero;
-            PolyHedraInstance_3D_Data.ToBuffer(PolyHedraInstance_3D_Data.Size, ref offset, 1, 1, 2, 3, 4, 5, 6);
+            PolyHedraInstance_3D_Data.ToBuffer(PolyHedraInstance_3D_Data.Size, ref offset, 1, 3, 4, 5, 6, 7, 8);
 
             InstCount = len;
         }

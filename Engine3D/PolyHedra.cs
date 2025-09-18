@@ -66,6 +66,13 @@ namespace Engine3D.Abstract3D
         private ArrayList<IndexTriangle> Faces;
         private ArrayList<ColorUData> Colors;
 
+        /*  create a Color Pallet
+         *      remember what colors are used
+         *      when a color is added, check if its already in the pallet
+         *      use 1D Texture Coordinates for that Color
+         *      use a 1D Texture
+         */
+
         private bool IsEdit;
 
         public PolyHedra()
@@ -129,6 +136,17 @@ namespace Engine3D.Abstract3D
         public void Edit_Change_Color(uint idx, uint color)
         {
             if (!IsEdit) { throw new ENotEdit(); }
+
+            uint hi, mid, lo;
+
+            hi = color & 0xFF0000;
+            mid = color & 0x00FF00;
+            lo = color & 0x0000FF;
+
+            hi = hi >> 16;
+            lo = lo << 16;
+            color = hi | mid | lo;
+
             Colors[idx] = new ColorUData(color);
         }
 
@@ -224,11 +242,32 @@ namespace Engine3D.Abstract3D
 
 
 
+        public Graphics.PolyHedraBase.PolyHedra_Corner_Data[] ToBufferData()
+        {
+            Graphics.PolyHedraBase.PolyHedra_Corner_Data[] data = new Graphics.PolyHedraBase.PolyHedra_Corner_Data[Faces.Count * 3];
+
+            for (int f = 0; f < Faces.Count; f++)
+            {
+                IndexTriangle face = Faces[f];
+
+                Point3D a = Corners[face.A];
+                Point3D b = Corners[face.B];
+                Point3D c = Corners[face.C];
+
+                Point3D normal = (b - a) ^ (c - a);
+
+                int data_idx = f * 3;
+                data[data_idx + 0] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(a, normal, ((float)f) / Faces.Count);
+                data[data_idx + 1] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(b, normal, ((float)f) / Faces.Count);
+                data[data_idx + 2] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(c, normal, ((float)f) / Faces.Count);
+            }
+
+            return data;
+        }
         public void ToBuffer(Graphics.PolyHedraBase.PolyHedra_Base_Buffer buffer)
         {
-            buffer.Bind_Main_Corners(Corners.ToArray());
-            buffer.Bind_Main_Indexes(Faces.ToArray());
-            buffer.Bind_Main_Colors(Colors.ToArray());
+            buffer.BindMain(ToBufferData());
+            buffer.BindTex(Colors.ToArray());
         }
 
         public static class Generate

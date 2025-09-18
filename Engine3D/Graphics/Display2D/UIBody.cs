@@ -65,7 +65,7 @@ namespace Engine3D.Graphics.Display2D.UserInterface
             GL.BufferData(BufferTarget.ArrayBuffer, len * UIBody_Data.SizeOf, data, BufferUsageHint.StreamDraw);
 
             System.IntPtr offset = System.IntPtr.Zero;
-            UIBody_Data.ToBuffer(UIBody_Data.SizeOf, ref offset, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            UIBody_Data.ToBuffer(UIBody_Data.SizeOf, ref offset, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
             InstCount = len;
         }

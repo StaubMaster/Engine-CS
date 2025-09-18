@@ -32,8 +32,10 @@ namespace Engine3D.Graphics.PolyHedraBase
         public override void Draw_Inst()
         {
             Use();
+            GL.BindTexture(TextureTarget.Texture1DArray, TextureArray);
             GL.BindBufferBase(BufferRangeTarget.ShaderStorageBuffer, 0, ColorsBuffer);
-            GL.DrawElementsInstanced(PrimitiveType.Triangles, ElemCount, DrawElementsType.UnsignedInt, System.IntPtr.Zero, InstCount);
+            //GL.DrawElementsInstanced(PrimitiveType.Triangles, ElemCount, DrawElementsType.UnsignedInt, System.IntPtr.Zero, InstCount);
+            GL.DrawArraysInstanced(PrimitiveType.Triangles, 0, MainCount, InstCount);
         }
     }
 }
