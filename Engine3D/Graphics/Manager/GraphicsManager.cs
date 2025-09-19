@@ -6,29 +6,51 @@ using Engine3D.Miscellaneous;
 
 namespace Engine3D.Graphics.Manager
 {
-    //  make abstract
     public abstract class GraphicsManager
     {
-        /* generalize
-         *  Array of Shaders
-         *  Array of Uniforms
+        /* combine Shaders and Uniforms into a "Packet"
+         * when additional stuff is used, they can be put together
+         * so for chunk stuff
+         *  the Shader and Uniforms can be together
          *  
-         *  after all Constructing is done
-         *  Connect Uniforms and Shaders
+         * finally do Complex Uniforms
+         * 
          */
 
-        //public readonly ArrayList<GenericShader> ShaderList;
+        protected GenericShader[] Shaders;
+        protected GenericUniformBase[] Uniforms;
 
-        protected GraphicsManager()
+        protected void AppendShaders(params GenericShader[] shaders)
         {
-            //ShaderList = new ArrayList<GenericShader>();
+            Shaders = ArrayHelp.CombineArrays(Shaders, shaders);
+        }
+        protected void AppendUniforms(params GenericUniformBase[] uniforms)
+        {
+            Uniforms = ArrayHelp.CombineArrays(Uniforms, uniforms);
         }
 
-        protected abstract GenericShader[] AllShaders();
-        protected abstract void InitUniforms(GenericShader[] shaders);
-        public void InitUniforms()
+        protected abstract void InitShaders(string shaderDir);
+        protected abstract void InitUniforms();
+
+        protected GraphicsManager(
+            string shaderDir,
+            GenericShader[] shaders,
+            GenericUniformBase[] uniforms
+            )
         {
-            InitUniforms(AllShaders());
+            Shaders = shaders;
+            Uniforms = uniforms;
+
+            InitShaders(shaderDir);
+            InitUniforms();
+
+            if (Shaders != null && Uniforms != null)
+            {
+                for (int i = 0; i < Uniforms.Length; i++)
+                {
+                    Uniforms[i].FindLocations(Shaders);
+                }
+            }
         }
     }
 }

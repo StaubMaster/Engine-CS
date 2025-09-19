@@ -9,33 +9,33 @@ namespace Engine3D.Graphics.Manager
     public class UserInterfaceManager : GraphicsManager
     {
         //  Global
-        public DataUniform<SizeRatio> ScreenRatio;
+        public GenericDataUniform<SizeRatio> ScreenRatio;
 
 
         //public GUniDepth Depth;
-        public DataUniform<DepthData> Depth;
-        public DataUniform<RangeData> DepthFadeRange;
-        public DataUniform<ColorUData> DepthFadeColor;
+        public GenericDataUniform<DepthData> Depth;
+        public GenericDataUniform<RangeData> DepthFadeRange;
+        public GenericDataUniform<ColorUData> DepthFadeColor;
 
-        public DataUniform<Point3D> LightSolar;
-        public DataUniform<RangeData> LightRange;
+        public GenericDataUniform<Point3D> LightSolar;
+        public GenericDataUniform<RangeData> LightRange;
 
 
 
         //  both Per Body / also Global
-        public DataUniform<ColorUData> OtherColor;
-        public DataUniform<LInterData> OtherColorInter;
+        public GenericDataUniform<ColorUData> OtherColor;
+        public GenericDataUniform<LInterData> OtherColorInter;
 
-        public DataUniform<LInterData> GrayInter;
+        public GenericDataUniform<LInterData> GrayInter;
 
 
 
-        //public TextShader Text_Shader;
-        //public TextBuffer Text_Buffer;
-
+        public GenericShader TextShader;
         public GenericShader UIBodyShader;
 
-        public UserInterfaceManager(string shaderDir) : base()
+
+
+        protected override void InitShaders(string shaderDir)
         {
             UIBodyShader = new GenericShader(new ShaderCode[]
             {
@@ -44,31 +44,47 @@ namespace Engine3D.Graphics.Manager
                 ShaderCode.FromFile(shaderDir + "Grid/UI_Body.frag"),
             });
 
-            InitUniforms();
-        }
-
-        protected override GenericShader[] AllShaders()
-        {
-            return new GenericShader[]
+            TextShader = new GenericShader(new ShaderCode[]
             {
+                ShaderCode.FromFile(shaderDir + "Text/TextUni.vert"),
+                ShaderCode.FromFile(shaderDir + "Text/TextUni.geom"),
+                ShaderCode.FromFile(shaderDir + "Frag/Direct.frag"),
+            });
+
+            AppendShaders(
                 UIBodyShader,
-            };
+                TextShader
+                );
         }
-        protected override void InitUniforms(GenericShader[] shaders)
+        protected override void InitUniforms()
         {
-            ScreenRatio = new DataUniform<SizeRatio>("screenRatios", shaders);
+            ScreenRatio = new GenericDataUniform<SizeRatio>("screenRatios");
 
-            Depth = new DataUniform<DepthData>("depthFactor", shaders);
-            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", shaders);
-            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", shaders);
+            Depth = new GenericDataUniform<DepthData>("depthFactor");
+            DepthFadeRange = new GenericDataUniform<RangeData>("depthFadeRange");
+            DepthFadeColor = new GenericDataUniform<ColorUData>("depthFadeColor");
 
-            LightSolar = new DataUniform<Point3D>("solar", shaders);
-            LightRange = new DataUniform<RangeData>("lightRange", shaders);
+            LightSolar = new GenericDataUniform<Point3D>("solar");
+            LightRange = new GenericDataUniform<RangeData>("lightRange");
 
-            OtherColor = new DataUniform<ColorUData>("colorOther", shaders);
-            OtherColorInter = new DataUniform<LInterData>("colorInterPol", shaders);
+            OtherColor = new GenericDataUniform<ColorUData>("colorOther");
+            OtherColorInter = new GenericDataUniform<LInterData>("colorInterPol");
 
-            GrayInter = new DataUniform<LInterData>("GrayInter", shaders);
+            GrayInter = new GenericDataUniform<LInterData>("GrayInter");
+
+            AppendUniforms(
+                ScreenRatio,
+                Depth,
+                DepthFadeRange,
+                DepthFadeColor,
+                LightSolar,
+                LightRange,
+                OtherColor,
+                OtherColorInter,
+                GrayInter
+                );
         }
+
+        public UserInterfaceManager(string shaderDir) : base(shaderDir, null, null) { }
     }
 }

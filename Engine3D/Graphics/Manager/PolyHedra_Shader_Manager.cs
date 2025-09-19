@@ -1,5 +1,6 @@
 ﻿using Engine3D.Abstract3D;
 using Engine3D.Graphics.Shader;
+using Engine3D.Graphics.Shader.Uniform;
 using Engine3D.DataStructs;
 using Engine3D.Graphics.Basic.Uniforms;
 
@@ -24,25 +25,25 @@ namespace Engine3D.Graphics.Manager
          */
 
         //  Global
-        public DataUniform<SizeRatio> ViewPortSizeRatio;
-        public DataUniform<Transformation3D> View;
+        public GenericDataUniform<SizeRatio> ViewPortSizeRatio;
+        public GenericDataUniform<Transformation3D> View;
 
 
 
-        public DataUniform<DepthData> Depth;
-        public DataUniform<RangeData> DepthFadeRange;
-        public DataUniform<ColorUData> DepthFadeColor;
+        public GenericDataUniform<DepthData> Depth;
+        public GenericDataUniform<RangeData> DepthFadeRange;
+        public GenericDataUniform<ColorUData> DepthFadeColor;
 
-        public DataUniform<Point3D> LightSolar;
-        public DataUniform<RangeData> LightRange;
+        public GenericDataUniform<Point3D> LightSolar;
+        public GenericDataUniform<RangeData> LightRange;
 
 
 
         //  both Per Body / also Global
-        public DataUniform<ColorUData> OtherColor;
-        public DataUniform<LInterData> OtherColorInter;
+        public GenericDataUniform<ColorUData> OtherColor;
+        public GenericDataUniform<LInterData> OtherColorInter;
 
-        public DataUniform<LInterData> GrayInter;
+        public GenericDataUniform<LInterData> GrayInter;
 
 
 
@@ -53,32 +54,9 @@ namespace Engine3D.Graphics.Manager
 
         public GenericShader AxisBoxShader;
 
-        public GenericShader[] Auxiliary;
 
-        public PolyHedra_Shader_Manager(string shaderDir) : base()
-        {
-            InstShader = new GenericShader(new ShaderCode[]
-            {
-                ShaderCode.FromFile(shaderDir + "Inst/Inst.vert"),
-                ShaderCode.FromFile(shaderDir + "Inst/Inst.geom"),
-                ShaderCode.FromFile(shaderDir + "Inst/Inst.frag"),
-            });
 
-            InstWireShader = new GenericShader(new ShaderCode[]
-            {
-                ShaderCode.FromFile(shaderDir + "Inst/Wire.vert"),
-                ShaderCode.FromFile(shaderDir + "Inst/Wire.geom"),
-                ShaderCode.FromFile(shaderDir + "Inst/Wire.frag"),
-            });
-
-            AxisBoxShader = new GenericShader(new ShaderCode[]
-            {
-                ShaderCode.FromFile(shaderDir + "Box/Box.vert"),
-                ShaderCode.FromFile(shaderDir + "Box/Box.geom"),
-                ShaderCode.FromFile(shaderDir + "Box/Box.frag"),
-            });
-        }
-        public PolyHedra_Shader_Manager(string shaderDir, params GenericShader[] shaders) : base()
+        protected override void InitShaders(string shaderDir)
         {
             InstShader = new GenericShader(new ShaderCode[]
             {
@@ -101,41 +79,46 @@ namespace Engine3D.Graphics.Manager
                 ShaderCode.FromFile(shaderDir + "Box/Box.frag"),
             });
 
-            Auxiliary = shaders;
-        }
-
-        protected override GenericShader[] AllShaders()
-        {
-            GenericShader[] main = new GenericShader[]
-            {
+            AppendShaders(
                 InstShader,
                 InstWireShader,
-                AxisBoxShader,
-            };
-
-            GenericShader[] shaders = new GenericShader[main.Length + Auxiliary.Length];
-            int i;
-            for (i = 0; i < main.Length; i++) { shaders[i] = main[i]; }
-            for (int j = 0; j < Auxiliary.Length; j++) { shaders[i] = Auxiliary[j]; i++; }
-
-            return shaders;
+                AxisBoxShader
+                );
         }
-        protected override void InitUniforms(GenericShader[] shaders)
+        protected override void InitUniforms()
         {
-            ViewPortSizeRatio = new DataUniform<SizeRatio>("screenRatios", shaders);
-            View = new DataUniform<Transformation3D>("view", shaders);
+            ViewPortSizeRatio = new GenericDataUniform<SizeRatio>("screenRatios");
+            View = new GenericDataUniform<Transformation3D>("view");
 
-            Depth = new DataUniform<DepthData>("depthFactor", shaders);
-            DepthFadeRange = new DataUniform<RangeData>("depthFadeRange", shaders);
-            DepthFadeColor = new DataUniform<ColorUData>("depthFadeColor", shaders);
+            Depth = new GenericDataUniform<DepthData>("depthFactor");
+            DepthFadeRange = new GenericDataUniform<RangeData>("depthFadeRange");
+            DepthFadeColor = new GenericDataUniform<ColorUData>("depthFadeColor");
 
-            LightSolar = new DataUniform<Point3D>("solar", shaders);
-            LightRange = new DataUniform<RangeData>("lightRange", shaders);
+            LightSolar = new GenericDataUniform<Point3D>("solar");
+            LightRange = new GenericDataUniform<RangeData>("lightRange");
 
-            OtherColor = new DataUniform<ColorUData>("colorOther", shaders);
-            OtherColorInter = new DataUniform<LInterData>("colorInterPol", shaders);
+            OtherColor = new GenericDataUniform<ColorUData>("colorOther");
+            OtherColorInter = new GenericDataUniform<LInterData>("colorInterPol");
 
-            GrayInter = new DataUniform<LInterData>("GrayInter", shaders);
+            GrayInter = new GenericDataUniform<LInterData>("GrayInter");
+
+            AppendUniforms(
+                ViewPortSizeRatio,
+                View,
+                Depth, DepthFadeRange,
+                DepthFadeColor,
+                LightSolar,
+                LightRange,
+                OtherColor,
+                OtherColorInter, GrayInter
+                );
         }
+
+        public PolyHedra_Shader_Manager(string shaderDir) : base(shaderDir, null, null) { }
+        public PolyHedra_Shader_Manager(
+            string shaderDir,
+            GenericShader[] shaders,
+            GenericUniformBase[] uniforms
+            ) : base(shaderDir, shaders, uniforms) { }
     }
 }

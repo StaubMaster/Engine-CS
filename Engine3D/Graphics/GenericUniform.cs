@@ -2,7 +2,6 @@
 
 using Engine3D.Graphics.Shader;
 using Engine3D.Graphics.Shader.Uniform;
-using Engine3D.Graphics.Shader.Uniform.Float;
 using Engine3D.DataStructs;
 
 using Engine3D.Abstract3D;
@@ -39,21 +38,30 @@ namespace Engine3D.Graphics.Shader.Uniform
     }
     public abstract class GenericUniformBase
     {
-        private readonly GenericUniformProgramLocation[] Locations;
+        private readonly string Name;
+        private GenericUniformProgramLocation[] Locations;
 
-        public GenericUniformBase(string name, GenericShader[] programs)
+        public GenericUniformBase(string name)
         {
+            Name = name;
+        }
+        public GenericUniformBase(string name, GenericShader[] shaders)
+        {
+            Name = name;
             //ConsoleLog.Log("Uniform: " + name);
-
-            GenericUniformProgramLocation[] locations = new GenericUniformProgramLocation[programs.Length];
+            FindLocations(shaders);
+        }
+        public void FindLocations(GenericShader[] shaders)
+        {
+            GenericUniformProgramLocation[] locations = new GenericUniformProgramLocation[shaders.Length];
             int locCount = 0;
 
-            for (int i = 0; i < programs.Length; i++)
+            for (int i = 0; i < shaders.Length; i++)
             {
-                int loc = programs[i].UniformFind(name);
+                int loc = shaders[i].UniformFind(Name);
                 if (loc != -1)
                 {
-                    locations[locCount] = new GenericUniformProgramLocation(this, programs[i], loc);
+                    locations[locCount] = new GenericUniformProgramLocation(this, shaders[i], loc);
                     locCount++;
                 }
             }

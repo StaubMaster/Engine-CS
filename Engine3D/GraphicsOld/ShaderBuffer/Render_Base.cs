@@ -5,7 +5,34 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Engine3D.GraphicsOld
 {
-    public abstract class RenderProgram
+    public abstract class RenderBuffers
+    {
+        protected int Buffer_Array;
+
+        protected RenderBuffers()
+        {
+            Buffer_Array = -1;
+        }
+
+        protected void Create(string name)
+        {
+            ConsoleLog.Log("Create Buffer '" + name + "'");
+
+            Buffer_Array = GL.GenVertexArray();
+        }
+        public abstract void Create();
+        protected void Delete(string name)
+        {
+            ConsoleLog.Log("Delete Buffer '" + name + "'");
+
+            GL.BindVertexArray(Buffer_Array);
+            Buffer_Array = -1;
+        }
+        public abstract void Delete();
+
+        public abstract void Draw();
+    }
+    /*public abstract class RenderProgram
     {
         private static uint ID_Number = 0;
         private static uint ID_Current = 0xFFFFFFFF;
@@ -72,35 +99,8 @@ namespace Engine3D.GraphicsOld
             Use();
             return GL.GetUniformLocation(Program, uni);
         }
-    }
-    public abstract class RenderBuffers
-    {
-        protected int Buffer_Array;
-
-        protected RenderBuffers()
-        {
-            Buffer_Array = -1;
-        }
-
-        protected void Create(string name)
-        {
-            ConsoleLog.Log("Create Buffer '" + name + "'");
-
-            Buffer_Array = GL.GenVertexArray();
-        }
-        public abstract void Create();
-        protected void Delete(string name)
-        {
-            ConsoleLog.Log("Delete Buffer '" + name + "'");
-
-            GL.BindVertexArray(Buffer_Array);
-            Buffer_Array = -1;
-        }
-        public abstract void Delete();
-
-        public abstract void Draw();
-    }
-    public abstract class RenderCollection<P, B>
+    }*/
+    /*public abstract class RenderCollection<P, B>
     {
         public P Program;
         public List<B> Buffers;
@@ -114,5 +114,5 @@ namespace Engine3D.GraphicsOld
             Buffers.Add(buffer);
             return i;
         }
-    }
+    }*/
 }

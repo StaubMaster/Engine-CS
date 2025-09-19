@@ -6,16 +6,19 @@
 
   <ItemGroup>
     <Compile Remove="Deprecated\InnPut\**" />
-    <Compile Remove="GraphicsOld\Forms\**" />
+    <Compile Remove="GraphicsOld\**" />
     <Compile Remove="Graphics\Display\**" />
+    <Compile Remove="Graphics\Shader\Uniform\**" />
     <Compile Remove="OutPut\**" />
     <EmbeddedResource Remove="Deprecated\InnPut\**" />
-    <EmbeddedResource Remove="GraphicsOld\Forms\**" />
+    <EmbeddedResource Remove="GraphicsOld\**" />
     <EmbeddedResource Remove="Graphics\Display\**" />
+    <EmbeddedResource Remove="Graphics\Shader\Uniform\**" />
     <EmbeddedResource Remove="OutPut\**" />
     <None Remove="Deprecated\InnPut\**" />
-    <None Remove="GraphicsOld\Forms\**" />
+    <None Remove="GraphicsOld\**" />
     <None Remove="Graphics\Display\**" />
+    <None Remove="Graphics\Shader\Uniform\**" />
     <None Remove="OutPut\**" />
   </ItemGroup>
 
@@ -26,13 +29,8 @@
     <Compile Remove="Deprecated\Entity\BodyDynamic.cs" />
     <Compile Remove="Deprecated\Entity\TransBody.cs" />
     <Compile Remove="Deprecated\NameCache.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\BoxProgram.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\Icon.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\Select.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\Surf_Chunk.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\Surf_Layer.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\Text.cs" />
-    <Compile Remove="GraphicsOld\ShaderBuffer\TransUni.cs" />
+    <Compile Remove="Graphics\Display2D\Text\TextShader.cs" />
+    <Compile Remove="Graphics\Display3D\AxisBoxShader.cs" />
     <Compile Remove="Graphics\Display3D\BodyElemBuffer.cs" />
     <Compile Remove="Graphics\Display3D\BodyElemUniShader.cs" />
     <Compile Remove="Graphics\Display3D\BodyElemUniWireShader.cs" />

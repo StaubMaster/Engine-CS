@@ -1,6 +1,5 @@
 ﻿using Engine3D.Graphics.Shader;
 using Engine3D.Graphics.Shader.Uniform;
-using Engine3D.Graphics.Shader.Uniform.Float;
 using Engine3D.DataStructs;
 
 using Engine3D.Abstract3D;
@@ -8,12 +7,17 @@ using Engine3D.Miscellaneous;
 
 namespace Engine3D.Graphics.Basic.Uniforms
 {
-    public class DataUniform<T> : GenericUniformBase where T : IData
+    public class GenericDataUniform<T> : GenericUniformBase where T : IData
     {
         private T Data;
         private bool HasValue;
 
-        public DataUniform(string name, GenericShader[] programs) : base(name, programs)
+        public GenericDataUniform(string name) : base(name)
+        {
+            Data = default;
+            HasValue = false;
+        }
+        public GenericDataUniform(string name, GenericShader[] programs) : base(name, programs)
         {
             Data = default;
             HasValue = false;
