@@ -17,12 +17,12 @@ uniform sampler1DArray texture0;
 
 
 in GeomInst {
-	vec3 Normal;
-	vec2 Tex;
-
 	vec3 Original;
 	vec3 Absolute;
 	vec3 Relative;
+
+	vec3 Normal;
+	vec2 Tex;
 
 	vec3 AltColor;
 	float[2] AltColLInter;

@@ -257,9 +257,9 @@ namespace Engine3D.Abstract3D
                 Point3D normal = (b - a) ^ (c - a);
 
                 int data_idx = f * 3;
-                data[data_idx + 0] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(a, normal, ((float)f) / Faces.Count);
-                data[data_idx + 1] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(b, normal, ((float)f) / Faces.Count);
-                data[data_idx + 2] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(c, normal, ((float)f) / Faces.Count);
+                data[data_idx + 0] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(a, normal, (f + 0.5f) / Faces.Count);
+                data[data_idx + 1] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(b, normal, (f + 0.5f) / Faces.Count);
+                data[data_idx + 2] = new Graphics.PolyHedraBase.PolyHedra_Corner_Data(c, normal, (f + 0.5f) / Faces.Count);
             }
 
             return data;

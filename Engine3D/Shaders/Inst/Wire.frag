@@ -15,12 +15,11 @@ uniform float[2]	GrayInter = { 1.0, 0.0 };
 
 
 in GeomInst {
-	vec3 Color;
-	vec3 Normal;
-
 	vec3 Original;
 	vec3 Absolute;
 	vec3 Relative;
+
+	vec3 Color;
 
 	vec3 AltColor;
 	float[2] AltColLInter;
@@ -50,22 +49,9 @@ float CalcDepthFactor()
 	return depth_factor;
 }
 
-float CalcLightFactor()
-{
-	float solar_factor;
-	solar_factor = dot(solar, normalize(fs_in.Normal));
-
-	float light_factor = solar_factor;
-	//light_factor = abs(light_factor);	//	lights from both sides
-	light_factor = min(max(light_factor, lightRange[0]), lightRange[2]);
-
-	return light_factor;
-}
-
 void main()
 {
 	float depth_factor = CalcDepthFactor();
-	float light_factor = CalcLightFactor();
 
 	/*	Factoring Order
 			Alternative Color Local

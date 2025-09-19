@@ -46,9 +46,9 @@ namespace Engine3D.Graphics.Manager
 
             TextShader = new GenericShader(new ShaderCode[]
             {
-                ShaderCode.FromFile(shaderDir + "Text/TextUni.vert"),
-                ShaderCode.FromFile(shaderDir + "Text/TextUni.geom"),
-                ShaderCode.FromFile(shaderDir + "Frag/Direct.frag"),
+                ShaderCode.FromFile(shaderDir + "Text/Text.vert"),
+                ShaderCode.FromFile(shaderDir + "Text/Text.geom"),
+                ShaderCode.FromFile(shaderDir + "Text/Text.frag"),
             });
 
             AppendShaders(
